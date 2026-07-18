@@ -1,20 +1,20 @@
 # Cat App (com.actionfit.cat.app)
 
-Cat App은 Cat Merge Cafe를 위한 private 제품 소유 composition root 선언 패키지입니다. 버전 `0.1.0`은 runtime composition이나 프로젝트 콘텐츠가 이미 이동했다고 간주하지 않고, 패키지 지향 project-shell 마이그레이션 목표만 기록합니다.
+Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 선언 패키지입니다. 현재 릴리스는 runtime composition이나 프로젝트 콘텐츠가 이미 이동했다고 간주하지 않고, 패키지 지향 project-shell 마이그레이션 목표만 기록합니다.
 
 ## 설치
 
-저장소는 Private입니다. 별도 승인된 수동 publish 후 권한이 있는 프로젝트가 패키지를 `Packages/manifest.json`에 추가할 수 있습니다.
+저장소 공개 범위는 Public입니다. 별도 승인된 수동 publish가 완료되면 프로젝트가 패키지를 `Packages/manifest.json`에 추가할 수 있습니다.
 
 ```json
 {
   "dependencies": {
-    "com.actionfit.cat.app": "https://github.com/ActionFitGames/Cat_App.git#0.1.1"
+    "com.actionfit.cat.app": "https://github.com/ActionFit-Editor/Cat_App.git#0.1.2"
   }
 }
 ```
 
-저장소 접근 권한이 필요합니다. 이 패키지에는 자격 증명이나 private 설정이 포함되지 않습니다.
+이 패키지에는 자격 증명, private 설정 또는 제품 구현 소스가 포함되지 않습니다.
 
 ## 현재 경계
 

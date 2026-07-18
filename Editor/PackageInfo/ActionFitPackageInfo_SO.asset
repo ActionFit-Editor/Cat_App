@@ -15,19 +15,10 @@ MonoBehaviour:
   _packageId: com.actionfit.cat.app
   _displayName: Cat App
   _repoName: Cat_App
-  _repositoryVisibility: 1
+  _repositoryVisibility: 0
   _owner: ActionFit
   _status: candidate
-  _description: Declares the private Cat Merge Cafe product composition root and
+  _description: Declares the Cat Merge Cafe product-owned composition root and
     package-oriented project-shell migration target without runtime implementation.
-  _releaseNote: "- \uC0AC\uB78C\uC774 \uC77D\uB294 README\uC758 \uC804\uCCB4 \uC124\uBA85\uC744
-    \uD55C\uAD6D\uC5B4 \uC911\uC2EC\uC73C\uB85C \uB2E4\uC2DC \uC791\uC131\uD588\uC2B5\uB2C8\uB2E4.\n-
-    \uD328\uD0A4\uC9C0 ID, API\xB7\uD0C0\uC785 \uC774\uB984, Unity \uBA54\uB274 \uACBD\uB85C,
-    \uBA85\uB839\uC5B4, \uC124\uC815 \uD0A4, \uD30C\uC77C \uACBD\uB85C\uC640 \uCF54\uB4DC
-    \uC608\uC81C\uB294 \uC815\uD655\uC131\uC744 \uC704\uD574 \uC6D0\uBB38 \uD45C\uAE30\uB97C
-    \uC720\uC9C0\uD588\uC2B5\uB2C8\uB2E4.\n- \uBB38\uC11C\uB9CC \uC815\uBE44\uD588\uC73C\uBA70
-    \uAE30\uC874 Runtime/Editor API, \uC9C1\uB82C\uD654 \uB370\uC774\uD130, \uD504\uB85C\uC81D\uD2B8
-    \uC124\uC815\uACFC \uB3D9\uC791\uC740 \uBCC0\uACBD\uD558\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4.\n-
-    Caution: \uC678\uBD80 \uC81C\uD488\uBA85\uACFC \uC124\uCE58 \uBA85\uB839\uC758
-    \uACE0\uC720 \uD45C\uAE30\uB294 \uBC88\uC5ED \uB300\uC0C1\uC5D0\uC11C \uC81C\uC678\uD588\uC2B5\uB2C8\uB2E4."
+  _releaseNote: "- Cat App 저장소의 다음 배포 공개 범위를 Private에서 Public으로 변경해 공개 publish 후 별도 저장소 권한 없이 설치할 수 있도록 준비했습니다.\n- package.json, README 설치 태그, AI_GUIDE.md와 PackageInfo 공개 범위를 버전 0.1.2 기준으로 정렬했습니다.\n- Runtime 구현, 게임 에셋, package dependency, 자격 증명 또는 private 설정은 추가하지 않아 설치 후 동작은 기존 선언 전용 상태와 같습니다.\n- Caution: 기존 ActionFitGames/Cat_App는 아직 Private이며, Public 대상 ActionFit-Editor/Cat_App 생성, 전체 branch/tag mirror, 0.1.2 publish와 catalog append는 별도 승인 전까지 실행되지 않습니다."
   _dependenciesOverride: 

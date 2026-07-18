@@ -1,14 +1,14 @@
 # AI Guide - Cat App
 
-This file is shipped inside the private product package so an AI assistant can resolve the Cat Merge Cafe composition target without copying that target into the consuming project's local convention documents.
+This file is shipped inside the public product-owned package so an AI assistant can resolve the Cat Merge Cafe composition target without copying that target into the consuming project's local convention documents.
 
 ## Package Identity
 
 - Package ID: `com.actionfit.cat.app`
 - Display name: Cat App
-- Repository: `https://github.com/ActionFitGames/Cat_App.git`
-- Repository visibility: Private
-- Current package version at generation time: `0.1.1`
+- Repository: `https://github.com/ActionFit-Editor/Cat_App.git`
+- Repository visibility: Public
+- Current package version at generation time: `0.1.2`
 - Unity version: `6000.2`
 
 AI Product Composition Root: com.actionfit.cat.app
@@ -18,7 +18,7 @@ AI Refactor target: package-oriented-product
 
 This declaration-only package is the product-owned composition root for Cat Merge Cafe's progressive package-oriented migration. It allows AI Code Convention and AI Refactor to resolve one explicit product target while the Unity project remains a thin shell for project settings, environment selection, safety guidance, and factual migration state.
 
-Version `0.1.0` contains no Runtime assembly, gameplay implementation, package dependency, project adapter, asset migration, or Agent Skill. The declaration is target metadata, not evidence that the current `Assets`, asmdef, package dependency, or runtime ownership graphs already match that target.
+This package currently contains no Runtime assembly, gameplay implementation, package dependency, project adapter, asset migration, or Agent Skill. The declaration is target metadata, not evidence that the current `Assets`, asmdef, package dependency, or runtime ownership graphs already match that target.
 
 ## Project Router Registration
 
@@ -73,5 +73,5 @@ Read this file when:
 
 - `ActionFitPackageInfo_SO.ReleaseNote` is Korean and contains only the single version being prepared.
 - Publishing remains manual through Custom Package Manager after a separate approval.
-- Before reusing a version, check the private repository and remote tags. Published tags are immutable.
+- Before reusing a version, check the remote repository and exact remote tags. Published tags are immutable.
 - If this package changes after its version is tagged, use the next unused patch version.

@@ -1,8 +1,8 @@
 {
   "name": "com.actionfit.cat.app",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "displayName": "Cat App",
-  "description": "Declares the private Cat Merge Cafe product composition root and package-oriented project-shell migration target without runtime implementation.",
+  "description": "Declares the Cat Merge Cafe product-owned composition root and package-oriented project-shell migration target without runtime implementation.",
   "unity": "6000.2",
   "author": {
     "name": "ActionFit"
