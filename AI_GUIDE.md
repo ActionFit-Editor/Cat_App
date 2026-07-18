@@ -8,7 +8,7 @@ This file is shipped inside the private product package so an AI assistant can r
 - Display name: Cat App
 - Repository: `https://github.com/ActionFitGames/Cat_App.git`
 - Repository visibility: Private
-- Current package version at generation time: `0.1.0`
+- Current package version at generation time: `0.1.1`
 - Unity version: `6000.2`
 
 AI Product Composition Root: com.actionfit.cat.app

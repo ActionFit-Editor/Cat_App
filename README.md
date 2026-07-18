@@ -1,41 +1,41 @@
 # Cat App (com.actionfit.cat.app)
 
-Cat App is the private, product-owned composition root declaration for Cat Merge Cafe. Version `0.1.0` records the package-oriented project-shell migration target without claiming that runtime composition or project content has already moved.
+Cat App은 Cat Merge Cafe를 위한 private 제품 소유 composition root 선언 패키지입니다. 버전 `0.1.0`은 runtime composition이나 프로젝트 콘텐츠가 이미 이동했다고 간주하지 않고, 패키지 지향 project-shell 마이그레이션 목표만 기록합니다.
 
-## Install
+## 설치
 
-The repository is private. After a separately approved manual publication, an authorized consuming project can add the package to `Packages/manifest.json`:
+저장소는 Private입니다. 별도 승인된 수동 publish 후 권한이 있는 프로젝트가 패키지를 `Packages/manifest.json`에 추가할 수 있습니다.
 
 ```json
 {
   "dependencies": {
-    "com.actionfit.cat.app": "https://github.com/ActionFitGames/Cat_App.git#0.1.0"
+    "com.actionfit.cat.app": "https://github.com/ActionFitGames/Cat_App.git#0.1.1"
   }
 }
 ```
 
-Repository access is required. This package contains no credentials or private configuration.
+저장소 접근 권한이 필요합니다. 이 패키지에는 자격 증명이나 private 설정이 포함되지 않습니다.
 
-## Current Boundary
+## 현재 경계
 
-- `AI_GUIDE.md` is the sole package-owned declaration of the Cat Merge Cafe product composition root and AI Refactor target.
-- This release has no Runtime assembly, gameplay implementation, package dependency, project adapter, asset migration, or Agent Skill.
-- The declaration identifies a target for read-only architecture analysis. It does not prove that `Assets`, assembly, package, or runtime ownership migration is complete.
-- Installing this package does not select an AI Code Convention profile. A consuming project keeps its explicit profile selector in its primary AI router.
+- `AI_GUIDE.md`는 Cat Merge Cafe 제품 composition root와 AI Refactor 목표에 대한 유일한 패키지 소유 선언입니다.
+- 이 릴리스에는 Runtime 어셈블리, 게임플레이 구현, 패키지 의존성, 프로젝트 adapter, 에셋 마이그레이션 또는 Agent Skill이 없습니다.
+- 선언은 읽기 전용 아키텍처 분석 대상을 식별합니다. `Assets`, 어셈블리, 패키지 또는 runtime 소유권 마이그레이션이 완료되었다는 증거는 아닙니다.
+- 이 패키지를 설치해도 AI Code Convention profile이 선택되지 않습니다. 사용하는 프로젝트는 primary AI router의 명시적 profile selector를 유지합니다.
 
-## Unity Menu
+## Unity 메뉴
 
-- README: `Tools > Package > Cat App > README`.
-- The package has no executable command or settings asset.
+- README: `Tools > Package > Cat App > README`
+- 실행 가능한 명령이나 설정 에셋은 없습니다.
 
-## AI Guide
+## AI 가이드
 
-- Read `AI_GUIDE.md` before analyzing or changing Cat Merge Cafe product composition, package ownership, project-shell migration, or package dependency structure.
+- Cat Merge Cafe 제품 composition, 패키지 소유권, project-shell 마이그레이션 또는 패키지 의존성 구조를 분석하거나 변경하기 전에 `AI_GUIDE.md`를 읽습니다.
 
-## Assembly
+## 어셈블리
 
-- **Editor** (`com.actionfit.cat.app.Editor`): README-only package menu.
+- **Editor** (`com.actionfit.cat.app.Editor`): README 전용 패키지 메뉴입니다.
 
-## Release Boundary
+## 릴리스 경계
 
-Repository creation, push, tag creation, catalog registration, and package publication require separate approval and are not performed by adding this embedded package.
+저장소 생성, push, 태그 생성, 카탈로그 등록과 패키지 publish는 별도 승인이 필요하며 이 embedded 패키지를 추가하는 것만으로 실행되지 않습니다.
