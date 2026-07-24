@@ -18,7 +18,12 @@ MonoBehaviour:
   _repositoryVisibility: 0
   _owner: ActionFit
   _status: candidate
-  _description: Declares the Cat Merge Cafe product-owned composition root and
-    package-oriented project-shell migration target without runtime implementation.
-  _releaseNote: "- Cat App 저장소의 다음 배포 공개 범위를 Private에서 Public으로 변경해 공개 publish 후 별도 저장소 권한 없이 설치할 수 있도록 준비했습니다.\n- package.json, README 설치 태그, AI_GUIDE.md와 PackageInfo 공개 범위를 버전 0.1.2 기준으로 정렬했습니다.\n- Runtime 구현, 게임 에셋, package dependency, 자격 증명 또는 private 설정은 추가하지 않아 설치 후 동작은 기존 선언 전용 상태와 같습니다.\n- Caution: 기존 ActionFitGames/Cat_App는 아직 Private이며, Public 대상 ActionFit-Editor/Cat_App 생성, 전체 branch/tag mirror, 0.1.2 publish와 catalog append는 별도 승인 전까지 실행되지 않습니다."
+  _description: Cat Merge Cafe product composition root with package-owned runtime
+    service and project-adapter boundaries.
+  _releaseNote: "- Lava Rush Order/EventAccess adapter\uC640 `UI_LavaRush` outer
+    dynamic-controller cache/gate seam\uC744 Cat \uC81C\uD488 Runtime\uC5D0 \uCD94\uAC00\uD588\uC2B5\uB2C8\uB2E4.\n-
+    Addressable handle, canvas, camera/font, scene anchor\uC640 production composition\uC740
+    Project Shell \uBC0F MCC-1631\uC5D0 \uB0A8\uAE41\uB2C8\uB2E4.\n- Caution: package
+    publish, Git tag \uC0DD\uC131\uACFC catalog \uB4F1\uB85D\uC740 \uD3EC\uD568\uD558\uC9C0
+    \uC54A\uC2B5\uB2C8\uB2E4."
   _dependenciesOverride: 

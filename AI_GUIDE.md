@@ -8,7 +8,7 @@ This file is shipped inside the public product-owned package so an AI assistant 
 - Display name: Cat App
 - Repository: `https://github.com/ActionFit-Editor/Cat_App.git`
 - Repository visibility: Public
-- Current package version at generation time: `0.1.2`
+- Current package version at generation time: `0.1.5`
 - Unity version: `6000.2`
 
 AI Product Composition Root: com.actionfit.cat.app
@@ -16,9 +16,11 @@ AI Refactor target: package-oriented-product
 
 ## Purpose And Boundary
 
-This declaration-only package is the product-owned composition root for Cat Merge Cafe's progressive package-oriented migration. It allows AI Code Convention and AI Refactor to resolve one explicit product target while the Unity project remains a thin shell for project settings, environment selection, safety guidance, and factual migration state.
+This product-owned package is the composition root for Cat Merge Cafe's progressive package-oriented migration. It allows AI Code Convention and AI Refactor to resolve one explicit product target while the Unity project remains a thin shell for project settings, environment selection, safety guidance, and factual migration state.
 
-This package currently contains no Runtime assembly, gameplay implementation, package dependency, project adapter, asset migration, or Agent Skill. The declaration is target metadata, not evidence that the current `Assets`, asmdef, package dependency, or runtime ownership graphs already match that target.
+Version `0.1.5` adds the Lava Rush Order/EventAccess compatibility adapters and the outer dynamic-controller cache/gate seam. It consumes neutral UI and MCC-1627 timing ports while leaving Order, EventAccessAnchor, Addressable handles, canvases, camera/font policy, generated tables, and the production switch in Project Shell or MCC-1631; Runtime must not reference `Assembly-CSharp`, `Main`, project managers, generated project types, project assets, or SDKs.
+
+The stable Runtime surface is `CatLoop`, `CatCountdown`, `CatLavaRushTimingAdapter`, `CatLavaRushStateStore`, `CatLavaRushPersistenceOwner`, `CatLavaRushCatalogResolver`, and `CatContentRewardService` plus their narrow input models/interfaces. Preserve fixed-key semantics, runtime-first restore, first-only corrupt backup, snapshot-before-marker durability, exact reset scope, canonical reward sorting, attachment receipts, and reload verification. Do not move physical Cat keys, generated SO reads, broad flush, trusted clock selection, or economy mutation into this package merely to remove an adapter.
 
 ## Project Router Registration
 
@@ -54,9 +56,13 @@ Read this file when:
 
 - Treat `package.json` as the source for package ID, version, Unity version, and dependencies.
 - Treat `Editor/PackageInfo/ActionFitPackageInfo_SO.asset` as the source for repository visibility, catalog metadata, owner, status, description, and the single-version release note.
-- Keep `README.md` focused on human installation and the current declaration-only boundary.
+- Keep `README.md` focused on human installation and the current product Runtime boundary.
 - Keep this guide as the sole Cat product-composition target declaration and route it through the existing package guide router.
-- Preserve the no-Runtime, no-dependency, and no-skill boundary until a separately approved implementation provides concrete ownership and dependency evidence.
+- Add Runtime owners and dependencies only when a separately approved Jira unit provides concrete ownership and dependency evidence. Keep project adapters narrow and one-way.
+- Keep `ILavaRushProfileRoster`, `ILavaRushAudio`, semantic localization keys, and `ILavaRushAnalyticsSink` reusable-facing; Cat selection, routing, and mapping policy belongs in this product package.
+- Keep `CatOrderCompletionSnapshot`, `CatLavaRushOrderProgressSource`, the priority-100 reward adapter, and the EventAccess descriptor/adapters Product-owned. Bind project Order and EventAccess implementations only at the later Project Shell composition edge.
+- Keep `CatLavaRushDynamicController` specific to the `UI_LavaRush` Product boundary. Its injected binding may create or destroy the outer instance, but Product `Clear()` must not release the project Addressable handle or take over the inner `ILavaRushUIViewHost` lifetime.
+- Keep DataStore/DataKeys, BotNameSO/ProfileStringData, Main.Sound/AudioClip, Unity project tables, generated reward rows, TDAnalytics, and SG_Manager in Project Shell leaves.
 
 ## Package Tools Menu
 
@@ -66,7 +72,7 @@ Read this file when:
 
 ## Agent Skills
 
-- This declaration-only version has no `Skills~/manifest.json` and installs no Agent Skill.
+- This version has no `Skills~/manifest.json` and installs no Agent Skill.
 - The package guide router and AI Refactor own discovery and read-only analysis; do not duplicate those workflows here.
 
 ## Release Note Rules

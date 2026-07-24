@@ -1,0 +1,22 @@
+{
+  "name": "com.actionfit.cat.app",
+  "rootNamespace": "ActionFit.Cat.App",
+  "references": [
+    "com.actionfit.content-core",
+    "com.actionfit.lava-rush",
+    "com.actionfit.lava-rush.ui",
+    "com.actionfit.time",
+    "Unity.Localization",
+    "UnityEngine.UI",
+    "Unity.TextMeshPro"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

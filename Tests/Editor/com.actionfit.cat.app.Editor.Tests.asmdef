@@ -1,0 +1,29 @@
+{
+  "name": "com.actionfit.cat.app.Editor.Tests",
+  "rootNamespace": "ActionFit.Cat.App.Tests",
+  "references": [
+    "com.actionfit.cat.app",
+    "com.actionfit.content-core",
+    "com.actionfit.lava-rush",
+    "com.actionfit.lava-rush.ui",
+    "com.actionfit.time",
+    "UnityEngine.UI",
+    "Unity.TextMeshPro"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
