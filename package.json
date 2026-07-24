@@ -1,6 +1,6 @@
 {
   "name": "com.actionfit.cat.app",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "displayName": "Cat App",
   "description": "Cat Merge Cafe product composition root with package-owned runtime service and project-adapter boundaries.",
   "unity": "6000.2",
@@ -8,9 +8,10 @@
     "name": "ActionFit"
   },
   "dependencies": {
+    "com.actionfit.cat.fonts": "1.0.0",
     "com.actionfit.content-core": "0.2.3",
     "com.actionfit.lava-rush": "0.1.11",
-    "com.actionfit.lava-rush.ui": "0.2.0",
+    "com.actionfit.lava-rush.ui": "0.2.1",
     "com.actionfit.time": "1.0.4",
     "com.actionfit.ui.popup": "0.1.1",
     "com.unity.addressables": "2.8.1",

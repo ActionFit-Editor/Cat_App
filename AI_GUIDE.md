@@ -8,7 +8,7 @@ This file is shipped inside the public product-owned package so an AI assistant 
 - Display name: Cat App
 - Repository: `https://github.com/ActionFit-Editor/Cat_App.git`
 - Repository visibility: Public
-- Current package version at generation time: `0.2.0`
+- Current package version at generation time: `0.2.1`
 - Unity version: `6000.2`
 
 AI Product Composition Root: com.actionfit.cat.app
@@ -18,7 +18,7 @@ AI Refactor target: package-oriented-product
 
 This product-owned package is the composition root for Cat Merge Cafe's progressive package-oriented migration. It allows AI Code Convention and AI Refactor to resolve one explicit product target while the Unity project remains a thin shell for project settings, environment selection, safety guidance, and factual migration state.
 
-Version `0.2.0` keeps `CatLavaRushComposition` as the sole Cat production owner of one `LavaRushEngine`, controller context/cache, deterministic subscriptions, prewarm, Order/access integration, and the global `LavaRushManager` compatibility surface. It pins the restored direct-controller UI `0.2.0` and adds a Cat-owned Editor tool that previews and explicitly creates only missing `UI_LavaRush`, `UI_LavaRush_Icon`, and `UI_LavaRush_Cell` Addressable entries. The package consumes neutral UI, timing, order, access, profile, audio, localization, and analytics ports. Physical Order and EventAccess implementations, Addressable handles, canvases, camera/font policy, generated tables, project assets, persistence/economy APIs, and SDK destinations remain injected Project Shell leaves. Runtime must not reference `Assembly-CSharp`, `Main`, project managers, generated project types, project assets, or SDKs.
+Version `0.2.1` builds on the `0.2.0` sole Cat production ownership of one `LavaRushEngine`, controller context/cache, deterministic subscriptions, prewarm, Order/access integration, the global `LavaRushManager` compatibility surface, and the explicit three-key Addressables registration tool. It pins the restored direct-controller UI `0.2.1` and adds the direct `com.actionfit.cat.fonts@1.0.0` composition dependency. Cat Fonts owns fallback assets, global `FontFallbackBinder`, locale policy, and Dynamic TMP tooling. The package consumes neutral UI, timing, order, access, profile, audio, localization, and analytics ports. Physical Order and EventAccess implementations, Addressable handles, canvases, camera integration and font-lifecycle invocation, generated tables, project assets, persistence/economy APIs, and SDK destinations remain injected Project Shell leaves. Project Shell calls the package-owned font API at startup, locale, and dynamic-instance lifetime points. Runtime must not reference `Assembly-CSharp`, `Main`, project managers, generated project types, project assets, or SDKs.
 
 The stable Runtime surface is `CatLoop`, `CatCountdown`, `CatLavaRushComposition`, `LavaRushManager`, `CatLavaRushDynamicController`, `CatLavaRushTimingAdapter`, `CatLavaRushStateStore`, `CatLavaRushPersistenceOwner`, `CatLavaRushCatalogResolver`, and `CatContentRewardService` plus their narrow input models/interfaces. Preserve fixed-key semantics, runtime-first restore, first-only corrupt backup, snapshot-before-marker durability, exact reset scope, canonical reward sorting, attachment receipts, and reload verification. Do not move physical Cat keys, generated SO reads, broad flush, trusted clock selection, or economy mutation into this package merely to remove an adapter.
 
@@ -63,6 +63,7 @@ Read this file when:
 - Keep `CatLavaRushComposition` as the only production engine/composition owner. The global `LavaRushManager` is a delegation-only compatibility facade and must never construct a second engine or subscribe to project events itself.
 - Keep the consuming-project binding in one explicit Project Shell seam. The current Cat Merge seam is `Assets/_Project/_Shared/Main/Base/Main.LavaRush.cs`; production Runtime under `Assets/_Project/Content/LavaRush/Scripts` must not be recreated.
 - Keep DataStore/DataKeys, BotNameSO/ProfileStringData, Main.Sound/AudioClip, Unity project tables, generated reward rows, TDAnalytics, and SG_Manager in Project Shell leaves.
+- Keep the direct `com.actionfit.cat.fonts` dependency. Do not copy fallback assets or `FontFallbackBinder` back into Cat App or Project Shell.
 - Keep `CatLavaRushAddressables` Editor-only and create-only. Preview must not mutate serialized settings. Apply requires a separate confirmation, may create only missing canonical GUID/address pairs in the existing writable bundled default group, and must preserve every existing entry, group, label, key, and scene anchor. A GUID/address collision, mismatched canonical entry, missing settings, or incompatible group policy blocks the entire operation; a partial create failure rolls back every entry created by that attempt.
 - Never call Addressables apply during package install, repair, import, batchmode, Editor startup, or Runtime initialization. `com.unity.addressables@2.8.1` exists solely as the explicit owner dependency for this persistent package's Editor registration tool and the product's Project Shell integration.
 

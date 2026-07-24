@@ -1,6 +1,6 @@
 # Cat App (com.actionfit.cat.app)
 
-Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 패키지입니다. `0.2.0`은 Lava Rush의 production 조합, 단일 engine, controller cache, 구독 수명, 호환 facade와 명시적 Addressables 등록 도구를 패키지로 묶습니다. 프로젝트 저장소·에셋·생성 테이블·SDK·Addressable handle과 Unity lifecycle은 하나의 Project Shell seam에서 명시적으로 주입합니다.
+Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 패키지입니다. `0.2.1`은 `0.2.0`의 Lava Rush production 조합, 단일 engine, controller cache, 구독 수명, 호환 facade와 명시적 Addressables 등록 도구를 보존하면서 Cat 전용 fallback/font policy를 `com.actionfit.cat.fonts@1.0.0`에 직접 조합합니다. Lava Rush UI `0.2.1`의 shared-font 자산 경계와 호환되며, 프로젝트 저장소·에셋·생성 테이블·SDK·Addressable handle과 Unity lifecycle은 하나의 Project Shell seam에서 명시적으로 주입합니다.
 
 ## 설치
 
@@ -9,7 +9,7 @@ Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 패키
 ```json
 {
   "dependencies": {
-    "com.actionfit.cat.app": "https://github.com/ActionFit-Editor/Cat_App.git#0.2.0"
+    "com.actionfit.cat.app": "https://github.com/ActionFit-Editor/Cat_App.git#0.2.1"
   }
 }
 ```
@@ -31,6 +31,7 @@ Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 패키
 - Order completion snapshot과 priority-100 reward adapter는 중복 item level을 보존하고 effect-before-progress 순서를 유지하며 enabled lifetime에만 등록됩니다.
 - EventAccess adapter는 `UI_LavaRush_Icon`/`UI_LavaRush_Cell` key와 Cat adapter type을 분리하고, slot `2`, post-load 상태 재검사, click/countdown/frame 전달과 retryable bind를 보존합니다.
 - `CatLavaRushDynamicController`는 `UI_LavaRush`/Half/camera/font 요청과 단일 cache/gate를 소유합니다. Project Shell은 outer instance 생성/파괴와 Addressable handle을 계속 소유합니다.
+- `com.actionfit.cat.fonts@1.0.0`은 fallback asset, global `FontFallbackBinder`, locale 정책과 Editor guard/tooling을 소유합니다. Project Shell은 시작·옵션·동적 UI 수명 지점에서 이 패키지 API를 호출합니다.
 - `DataStore`, `BotNameSO`, `ProfileStringData`, `Main.Sound`, General StringTable, TD/Singular와 생성 reward table은 Project Shell adapter 뒤에 남습니다.
 - Cat Merge 생산 binding은 `Assets/_Project/_Shared/Main/Base/Main.LavaRush.cs` 하나이며, `Assets/_Project/Content/LavaRush/Scripts`의 production Runtime은 존재하지 않습니다.
 - Editor 등록 도구는 canonical package prefab GUID를 검증한 뒤 `UI_LavaRush`, `UI_LavaRush_Icon`, `UI_LavaRush_Cell` 중 누락된 항목만 현재 writable bundled default group에 만듭니다. 기존 항목·group·label·address를 이동하거나 덮어쓰지 않습니다.
