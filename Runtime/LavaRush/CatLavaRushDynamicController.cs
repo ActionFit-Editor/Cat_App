@@ -39,14 +39,14 @@ namespace ActionFit.Cat.App.LavaRush
     {
         public CatLavaRushDynamicControllerInstance(
             GameObject root,
-            LavaRushBootstrap controller)
+            global::UI_LavaRush controller)
         {
             Root = root;
             Controller = controller;
         }
 
         public GameObject Root { get; }
-        public LavaRushBootstrap Controller { get; }
+        public global::UI_LavaRush Controller { get; }
     }
 
     /// <summary>Defines only the existing Cat outer-load and instance-destruction facilities.</summary>
@@ -78,24 +78,28 @@ namespace ActionFit.Cat.App.LavaRush
         #region Fields
 
         private readonly CatLavaRushDynamicControllerBinding _binding;
+        private readonly Action<global::UI_LavaRush> _initializeController;
         private readonly Action<Exception> _failureObserver;
-        private LavaRushBootstrap _controller;
+        private global::UI_LavaRush _controller;
         private GameObject _root;
-        private Task<LavaRushBootstrap> _loadingTask;
+        private Task<global::UI_LavaRush> _loadingTask;
 
         #endregion
 
         public CatLavaRushDynamicController(
             CatLavaRushDynamicControllerBinding binding,
+            Action<global::UI_LavaRush> initializeController,
             Action<Exception> failureObserver = null)
         {
             _binding = binding ?? throw new ArgumentNullException(nameof(binding));
+            _initializeController = initializeController
+                ?? throw new ArgumentNullException(nameof(initializeController));
             _failureObserver = failureObserver;
         }
 
         #region Properties
 
-        public LavaRushBootstrap Controller
+        public global::UI_LavaRush Controller
         {
             get
             {
@@ -111,9 +115,9 @@ namespace ActionFit.Cat.App.LavaRush
         #region Public Methods
 
         /// <summary>Returns the cached controller or the one shared in-flight creation task.</summary>
-        public Task<LavaRushBootstrap> GetAsync()
+        public Task<global::UI_LavaRush> GetAsync()
         {
-            LavaRushBootstrap controller = Controller;
+            global::UI_LavaRush controller = Controller;
             if (controller != null)
             {
                 return Task.FromResult(controller);
@@ -128,7 +132,7 @@ namespace ActionFit.Cat.App.LavaRush
         }
 
         /// <summary>Uses the same cache and gate as ordinary access without creating another lifetime.</summary>
-        public Task<LavaRushBootstrap> PrewarmAsync() => GetAsync();
+        public Task<global::UI_LavaRush> PrewarmAsync() => GetAsync();
 
         /// <summary>
         /// Drops only the product cache. The project shell retains instance and Addressable-handle ownership.
@@ -143,7 +147,7 @@ namespace ActionFit.Cat.App.LavaRush
 
         #region Private Methods
 
-        private async Task<LavaRushBootstrap> LoadAsync()
+        private async Task<global::UI_LavaRush> LoadAsync()
         {
             CatLavaRushDynamicControllerInstance instance = null;
             try
@@ -160,6 +164,7 @@ namespace ActionFit.Cat.App.LavaRush
                     return null;
                 }
 
+                _initializeController(instance.Controller);
                 _root = instance.Root;
                 _controller = instance.Controller;
                 return _controller;

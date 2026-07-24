@@ -281,15 +281,15 @@ namespace ActionFit.Cat.App.Tests.LavaRush
                     destroyCount++;
                     UnityEngine.Object.DestroyImmediate(root);
                 });
-            var controller = new CatLavaRushDynamicController(binding);
+            var controller = new CatLavaRushDynamicController(binding, _ => { });
 
-            Task<LavaRushBootstrap> cold = controller.GetAsync();
-            Task<LavaRushBootstrap> concurrent = controller.GetAsync();
-            Task<LavaRushBootstrap> prewarm = controller.PrewarmAsync();
+            Task<UI_LavaRush> cold = controller.GetAsync();
+            Task<UI_LavaRush> concurrent = controller.GetAsync();
+            Task<UI_LavaRush> prewarm = controller.PrewarmAsync();
             CatLavaRushDynamicControllerInstance instance = CreateControllerInstance("first");
             completion.SetResult(instance);
 
-            LavaRushBootstrap first = await cold;
+            UI_LavaRush first = await cold;
             Assert.That(concurrent, Is.SameAs(cold));
             Assert.That(prewarm, Is.SameAs(cold));
             Assert.That(await concurrent, Is.SameAs(first));
@@ -325,7 +325,7 @@ namespace ActionFit.Cat.App.Tests.LavaRush
                     {
                         GameObject root = CreateObject("partial-root");
                         GameObject detached = CreateObject("detached-controller");
-                        var detachedController = detached.AddComponent<LavaRushBootstrap>();
+                        var detachedController = detached.AddComponent<UI_LavaRush>();
                         return Task.FromResult(
                             new CatLavaRushDynamicControllerInstance(root, detachedController));
                     }
@@ -337,7 +337,7 @@ namespace ActionFit.Cat.App.Tests.LavaRush
                     destroyCount++;
                     UnityEngine.Object.DestroyImmediate(root);
                 });
-            var controller = new CatLavaRushDynamicController(binding);
+            var controller = new CatLavaRushDynamicController(binding, _ => { });
 
             Assert.That(await controller.GetAsync(), Is.Null);
             Assert.That(controller.IsLoading, Is.False);
@@ -359,7 +359,7 @@ namespace ActionFit.Cat.App.Tests.LavaRush
                     return Task.FromResult(createCount == 1 ? first : second);
                 },
                 root => UnityEngine.Object.DestroyImmediate(root));
-            var controller = new CatLavaRushDynamicController(binding);
+            var controller = new CatLavaRushDynamicController(binding, _ => { });
 
             Assert.That(await controller.GetAsync(), Is.SameAs(first.Controller));
             UnityEngine.Object.DestroyImmediate(first.Root);
@@ -369,9 +369,9 @@ namespace ActionFit.Cat.App.Tests.LavaRush
         }
 
         [Test]
-        public void DynamicController_OuterBindingDoesNotOwnInnerPresentationHost()
+        public void DynamicController_OuterBindingDoesNotOwnRetiredPresentationType()
         {
-            Type hostType = typeof(ILavaRushUIViewHost);
+            Type retiredType = typeof(LavaRushPresentation);
             Type[] bindingSurface = typeof(CatLavaRushDynamicControllerBinding)
                 .GetProperties()
                 .Select(property => property.PropertyType)
@@ -381,9 +381,9 @@ namespace ActionFit.Cat.App.Tests.LavaRush
                     .Select(parameter => parameter.ParameterType))
                 .ToArray();
 
-            Assert.That(bindingSurface, Has.None.EqualTo(hostType));
+            Assert.That(bindingSurface, Has.None.EqualTo(retiredType));
             Assert.That(typeof(CatLavaRushDynamicControllerBinding).Assembly,
-                Is.Not.EqualTo(hostType.Assembly));
+                Is.Not.EqualTo(retiredType.Assembly));
         }
 
         private CatLavaRushAccessService CreateAccessService(
@@ -415,7 +415,7 @@ namespace ActionFit.Cat.App.Tests.LavaRush
         private CatLavaRushDynamicControllerInstance CreateControllerInstance(string name)
         {
             GameObject root = CreateObject(name);
-            LavaRushBootstrap controller = root.AddComponent<LavaRushBootstrap>();
+            UI_LavaRush controller = root.AddComponent<UI_LavaRush>();
             return new CatLavaRushDynamicControllerInstance(root, controller);
         }
 

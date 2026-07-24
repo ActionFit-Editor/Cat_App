@@ -6,6 +6,7 @@
     "com.actionfit.lava-rush",
     "com.actionfit.lava-rush.ui",
     "com.actionfit.time",
+    "com.actionfit.ui.popup",
     "Unity.Localization",
     "UnityEngine.UI",
     "Unity.TextMeshPro"

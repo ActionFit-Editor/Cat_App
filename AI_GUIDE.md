@@ -8,7 +8,7 @@ This file is shipped inside the public product-owned package so an AI assistant 
 - Display name: Cat App
 - Repository: `https://github.com/ActionFit-Editor/Cat_App.git`
 - Repository visibility: Public
-- Current package version at generation time: `0.1.5`
+- Current package version at generation time: `0.2.0`
 - Unity version: `6000.2`
 
 AI Product Composition Root: com.actionfit.cat.app
@@ -18,17 +18,15 @@ AI Refactor target: package-oriented-product
 
 This product-owned package is the composition root for Cat Merge Cafe's progressive package-oriented migration. It allows AI Code Convention and AI Refactor to resolve one explicit product target while the Unity project remains a thin shell for project settings, environment selection, safety guidance, and factual migration state.
 
-Version `0.1.5` adds the Lava Rush Order/EventAccess compatibility adapters and the outer dynamic-controller cache/gate seam. It consumes neutral UI and MCC-1627 timing ports while leaving Order, EventAccessAnchor, Addressable handles, canvases, camera/font policy, generated tables, and the production switch in Project Shell or MCC-1631; Runtime must not reference `Assembly-CSharp`, `Main`, project managers, generated project types, project assets, or SDKs.
+Version `0.2.0` keeps `CatLavaRushComposition` as the sole Cat production owner of one `LavaRushEngine`, controller context/cache, deterministic subscriptions, prewarm, Order/access integration, and the global `LavaRushManager` compatibility surface. It pins the restored direct-controller UI `0.2.0` and adds a Cat-owned Editor tool that previews and explicitly creates only missing `UI_LavaRush`, `UI_LavaRush_Icon`, and `UI_LavaRush_Cell` Addressable entries. The package consumes neutral UI, timing, order, access, profile, audio, localization, and analytics ports. Physical Order and EventAccess implementations, Addressable handles, canvases, camera/font policy, generated tables, project assets, persistence/economy APIs, and SDK destinations remain injected Project Shell leaves. Runtime must not reference `Assembly-CSharp`, `Main`, project managers, generated project types, project assets, or SDKs.
 
-The stable Runtime surface is `CatLoop`, `CatCountdown`, `CatLavaRushTimingAdapter`, `CatLavaRushStateStore`, `CatLavaRushPersistenceOwner`, `CatLavaRushCatalogResolver`, and `CatContentRewardService` plus their narrow input models/interfaces. Preserve fixed-key semantics, runtime-first restore, first-only corrupt backup, snapshot-before-marker durability, exact reset scope, canonical reward sorting, attachment receipts, and reload verification. Do not move physical Cat keys, generated SO reads, broad flush, trusted clock selection, or economy mutation into this package merely to remove an adapter.
+The stable Runtime surface is `CatLoop`, `CatCountdown`, `CatLavaRushComposition`, `LavaRushManager`, `CatLavaRushDynamicController`, `CatLavaRushTimingAdapter`, `CatLavaRushStateStore`, `CatLavaRushPersistenceOwner`, `CatLavaRushCatalogResolver`, and `CatContentRewardService` plus their narrow input models/interfaces. Preserve fixed-key semantics, runtime-first restore, first-only corrupt backup, snapshot-before-marker durability, exact reset scope, canonical reward sorting, attachment receipts, and reload verification. Do not move physical Cat keys, generated SO reads, broad flush, trusted clock selection, or economy mutation into this package merely to remove an adapter.
 
 ## Project Router Registration
 
-This package should be listed in `Packages/com.actionfit.custompackagemanager/PACKAGE_AI_GUIDE_ROUTER.md`.
-
 Requested router entry:
 
-- `Packages/com.actionfit.cat.app/AI_GUIDE.md` - Cat App declares the Cat Merge Cafe product composition root and package-oriented project-shell migration target. Read when analyzing or changing product composition, package ownership, project-shell migration, or Cat package dependency structure.
+- `Packages/com.actionfit.cat.app/AI_GUIDE.md` - Cat App owns the Cat Merge Cafe product composition root, package-oriented project-shell migration target, one Lava Rush production authority, and explicit create-only three-key Addressables registration workflow. Read when analyzing or changing product composition, package ownership, project-shell migration, Cat package dependencies, or registration boundaries.
 
 If the package router is not already included in the AI assistant's default reading sequence, connect that router through the consuming project's existing primary AI entry point. Do not copy this package's declaration into project-local convention documents.
 
@@ -61,14 +59,20 @@ Read this file when:
 - Add Runtime owners and dependencies only when a separately approved Jira unit provides concrete ownership and dependency evidence. Keep project adapters narrow and one-way.
 - Keep `ILavaRushProfileRoster`, `ILavaRushAudio`, semantic localization keys, and `ILavaRushAnalyticsSink` reusable-facing; Cat selection, routing, and mapping policy belongs in this product package.
 - Keep `CatOrderCompletionSnapshot`, `CatLavaRushOrderProgressSource`, the priority-100 reward adapter, and the EventAccess descriptor/adapters Product-owned. Bind project Order and EventAccess implementations only at the later Project Shell composition edge.
-- Keep `CatLavaRushDynamicController` specific to the `UI_LavaRush` Product boundary. Its injected binding may create or destroy the outer instance, but Product `Clear()` must not release the project Addressable handle or take over the inner `ILavaRushUIViewHost` lifetime.
+- Keep `CatLavaRushDynamicController` specific to the `UI_LavaRush` Product boundary. Its injected binding may create or destroy an outer instance, but Product `Clear()` must not release the project Addressable handle. The canonical `UI_LavaRush` direct controller owns its internal controller-context lifetime; no separate inner presentation host participates in production.
+- Keep `CatLavaRushComposition` as the only production engine/composition owner. The global `LavaRushManager` is a delegation-only compatibility facade and must never construct a second engine or subscribe to project events itself.
+- Keep the consuming-project binding in one explicit Project Shell seam. The current Cat Merge seam is `Assets/_Project/_Shared/Main/Base/Main.LavaRush.cs`; production Runtime under `Assets/_Project/Content/LavaRush/Scripts` must not be recreated.
 - Keep DataStore/DataKeys, BotNameSO/ProfileStringData, Main.Sound/AudioClip, Unity project tables, generated reward rows, TDAnalytics, and SG_Manager in Project Shell leaves.
+- Keep `CatLavaRushAddressables` Editor-only and create-only. Preview must not mutate serialized settings. Apply requires a separate confirmation, may create only missing canonical GUID/address pairs in the existing writable bundled default group, and must preserve every existing entry, group, label, key, and scene anchor. A GUID/address collision, mismatched canonical entry, missing settings, or incompatible group policy blocks the entire operation; a partial create failure rolls back every entry created by that attempt.
+- Never call Addressables apply during package install, repair, import, batchmode, Editor startup, or Runtime initialization. `com.unity.addressables@2.8.1` exists solely as the explicit owner dependency for this persistent package's Editor registration tool and the product's Project Shell integration.
 
 ## Package Tools Menu
 
 - Unity menu root: `Tools/Package/Cat App/`.
-- `README` opens this package README at priority `901` in the README-only package band.
-- This package has no executable command or settings ScriptableObject.
+- `Lava Rush Addressables/Preview Registration` is read-only.
+- `Lava Rush Addressables/Apply Missing Entries` requires confirmation and uses the create-only all-or-nothing contract above.
+- `README` opens this package README at the separated lower priority.
+- This package has no settings ScriptableObject.
 
 ## Agent Skills
 

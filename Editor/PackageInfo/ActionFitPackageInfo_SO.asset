@@ -18,12 +18,21 @@ MonoBehaviour:
   _repositoryVisibility: 0
   _owner: ActionFit
   _status: candidate
-  _description: Cat Merge Cafe product composition root with package-owned runtime
-    service and project-adapter boundaries.
-  _releaseNote: "- Lava Rush Order/EventAccess adapter\uC640 `UI_LavaRush` outer
-    dynamic-controller cache/gate seam\uC744 Cat \uC81C\uD488 Runtime\uC5D0 \uCD94\uAC00\uD588\uC2B5\uB2C8\uB2E4.\n-
-    Addressable handle, canvas, camera/font, scene anchor\uC640 production composition\uC740
-    Project Shell \uBC0F MCC-1631\uC5D0 \uB0A8\uAE41\uB2C8\uB2E4.\n- Caution: package
-    publish, Git tag \uC0DD\uC131\uACFC catalog \uB4F1\uB85D\uC740 \uD3EC\uD568\uD558\uC9C0
-    \uC54A\uC2B5\uB2C8\uB2E4."
+  _description: "Cat Merge Cafe \uC81C\uD488 composition root\uC640 package-owned
+    Runtime, Project Shell adapter \uBC0F \uBA85\uC2DC\uC801 Addressables \uB4F1\uB85D
+    \uACBD\uACC4\uB97C \uC81C\uACF5\uD569\uB2C8\uB2E4."
+  _releaseNote: "- Lava Rush 0.2 \uC81C\uD488 \uC870\uD569\uACFC direct controller
+    \uACBD\uACC4\uB97C `com.actionfit.lava-rush.ui@0.2.0`\uC5D0 \uB9DE\uCDB0 \uACE0\uC815\uD588\uC2B5\uB2C8\uB2E4.\n-
+    `UI_LavaRush`, `UI_LavaRush_Icon`, `UI_LavaRush_Cell`\uC758 read-only preview\uC640
+    \uBCC4\uB3C4 \uD655\uC778\uD615 create-only Addressables \uB4F1\uB85D \uBA54\uB274\uB97C
+    \uCD94\uAC00\uD588\uC2B5\uB2C8\uB2E4.\n- \uAE30\uC874 entry, group, label, key\uB294
+    \uBCC0\uACBD\uD558\uC9C0 \uC54A\uC73C\uBA70 address/GUID \uCDA9\uB3CC\uC774\uB098
+    \uD638\uD658\uB418\uC9C0 \uC54A\uB294 default group\uC740 \uC804\uCCB4 \uB4F1\uB85D\uC744
+    \uCC28\uB2E8\uD558\uACE0 \uC0DD\uC131 \uC911 \uC2E4\uD328\uB97C rollback\uD569\uB2C8\uB2E4.\n-
+    `com.unity.addressables@2.8.1`\uC744 Editor \uB3C4\uAD6C\uC758 \uBA85\uC2DC\uC801
+    \uC758\uC874\uC131\uC73C\uB85C \uCD94\uAC00\uD558\uACE0 Runtime assembly\uC758
+    Project Shell \uACBD\uACC4\uB294 \uC720\uC9C0\uD588\uC2B5\uB2C8\uB2E4.\n- Caution:
+    \uC124\uCE58\xB7repair\xB7import\xB7Editor \uC2DC\uC791\uC740 Addressables\uB97C
+    \uC790\uB3D9 \uBCC0\uACBD\uD558\uC9C0 \uC54A\uC73C\uBA70 save, reward, gameplay\uC640
+    \uAE30\uC874 GUID\uB294 \uBCC0\uACBD\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4."
   _dependenciesOverride: 

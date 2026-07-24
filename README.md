@@ -1,6 +1,6 @@
 # Cat App (com.actionfit.cat.app)
 
-Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 패키지입니다. `0.1.5`는 기존 core/durability와 product-service owner에 Lava Rush Order/EventAccess adapter 및 outer dynamic-controller cache/gate seam을 추가합니다. 프로젝트 저장소·에셋·생성 테이블·SDK·Addressable handle과 Unity lifecycle은 명시적 adapter로 주입합니다.
+Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 패키지입니다. `0.2.0`은 Lava Rush의 production 조합, 단일 engine, controller cache, 구독 수명, 호환 facade와 명시적 Addressables 등록 도구를 패키지로 묶습니다. 프로젝트 저장소·에셋·생성 테이블·SDK·Addressable handle과 Unity lifecycle은 하나의 Project Shell seam에서 명시적으로 주입합니다.
 
 ## 설치
 
@@ -9,7 +9,7 @@ Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 패키
 ```json
 {
   "dependencies": {
-    "com.actionfit.cat.app": "https://github.com/ActionFit-Editor/Cat_App.git#0.1.5"
+    "com.actionfit.cat.app": "https://github.com/ActionFit-Editor/Cat_App.git#0.2.0"
   }
 }
 ```
@@ -24,19 +24,26 @@ Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 패키
 - `CatLavaRushTimingAdapter`는 동일한 Loop/Countdown 인스턴스를 UI 패키지의 timing port에 연결합니다.
 - `CatLavaRushStateStore`, `CatLavaRushPersistenceOwner`, `CatLavaRushCatalogResolver`는 고정 runtime state, legacy import/marker/reset 순서와 생성 row 변환 정책을 소유하며 실제 key/flush/table 읽기는 소비 프로젝트가 주입합니다.
 - `CatContentRewardService`는 reward ID 정규화, 중복 합산, attachment receipt, 확인과 replay를 소유하며 실제 ledger와 economy mutation은 소비 프로젝트가 주입합니다.
-- 기존 `Main.Loop`, `Main.Countdown`, Lava Rush manager와 shared reward service는 package owner에 위임하는 호환 facade로 유지됩니다.
+- `CatLavaRushComposition`은 production `LavaRushEngine` 하나, controller context/cache, day/mode/unlock/order/merge 구독, EventAccess와 prewarm 수명을 단독 소유합니다.
+- global `LavaRushManager`는 `Main.LavaRush`, `Controller`, `GetAsync`, `StartEvent`, `StartPopup`, schedule/gameplay/reward/timer/reset 호출을 패키지 composition에 위임하는 호환 facade입니다.
+- 기존 `Main.Loop`, `Main.Countdown`과 shared reward service는 package owner에 위임하는 호환 facade로 유지됩니다.
 - Lava Rush 프로필 roster, 사운드 cue 정책, 18개 semantic localization mapping과 6개 분석 event schema는 SDK·프로젝트 타입을 모르는 제품 서비스로 제공됩니다.
 - Order completion snapshot과 priority-100 reward adapter는 중복 item level을 보존하고 effect-before-progress 순서를 유지하며 enabled lifetime에만 등록됩니다.
 - EventAccess adapter는 `UI_LavaRush_Icon`/`UI_LavaRush_Cell` key와 Cat adapter type을 분리하고, slot `2`, post-load 상태 재검사, click/countdown/frame 전달과 retryable bind를 보존합니다.
-- `CatLavaRushDynamicController`는 `UI_LavaRush`/Half/camera/font 요청과 단일 cache/gate만 소유합니다. Project Shell이 outer instance와 Addressable handle을 소유하고 `ILavaRushUIViewHost`는 inner presentation 수명만 유지합니다.
+- `CatLavaRushDynamicController`는 `UI_LavaRush`/Half/camera/font 요청과 단일 cache/gate를 소유합니다. Project Shell은 outer instance 생성/파괴와 Addressable handle을 계속 소유합니다.
 - `DataStore`, `BotNameSO`, `ProfileStringData`, `Main.Sound`, General StringTable, TD/Singular와 생성 reward table은 Project Shell adapter 뒤에 남습니다.
-- 선언은 product composition root를 식별하지만 다른 `Assets`, 어셈블리, 패키지 또는 runtime 소유권 마이그레이션이 완료됐다는 증거는 아닙니다.
+- Cat Merge 생산 binding은 `Assets/_Project/_Shared/Main/Base/Main.LavaRush.cs` 하나이며, `Assets/_Project/Content/LavaRush/Scripts`의 production Runtime은 존재하지 않습니다.
+- Editor 등록 도구는 canonical package prefab GUID를 검증한 뒤 `UI_LavaRush`, `UI_LavaRush_Icon`, `UI_LavaRush_Cell` 중 누락된 항목만 현재 writable bundled default group에 만듭니다. 기존 항목·group·label·address를 이동하거나 덮어쓰지 않습니다.
+- 선언과 이 전환은 Lava Rush 범위만 다루며 다른 `Assets`, 어셈블리, 패키지 또는 runtime 소유권 마이그레이션이 완료됐다는 증거는 아닙니다.
 - 이 패키지를 설치해도 AI Code Convention profile이 선택되지 않습니다. 사용하는 프로젝트는 primary AI router의 명시적 profile selector를 유지합니다.
 
 ## Unity 메뉴
 
 - README: `Tools > Package > Cat App > README`
-- 실행 가능한 명령이나 설정 에셋은 없습니다.
+- 읽기 전용 등록 점검: `Tools > Package > Cat App > Lava Rush Addressables > Preview Registration`
+- 누락 항목 생성: `Tools > Package > Cat App > Lava Rush Addressables > Apply Missing Entries`
+
+설치·복구·package import·Editor 시작·batchmode는 Addressables를 수정하지 않습니다. Apply는 preview와 별도 확인을 요구하며, address/GUID 충돌·설정 없음·호환되지 않는 default group이면 전체 작업을 차단합니다. 생성 도중 실패하면 그 시도에서 만든 항목을 모두 되돌립니다.
 
 ## AI 가이드
 
@@ -45,7 +52,7 @@ Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 패키
 ## 어셈블리
 
 - **Runtime** (`com.actionfit.cat.app`): Cat 제품 Loop, Countdown과 Lava Rush core/durability/product-service/Event Shell owner입니다.
-- **Editor** (`com.actionfit.cat.app.Editor`): README 전용 패키지 메뉴입니다.
+- **Editor** (`com.actionfit.cat.app.Editor`): README와 create-only Lava Rush Addressables 등록 메뉴입니다.
 
 ## 릴리스 경계
 
