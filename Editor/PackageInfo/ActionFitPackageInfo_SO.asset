@@ -21,10 +21,10 @@ MonoBehaviour:
   _description: "Cat Merge Cafe \uC81C\uD488 composition root\uC640 package-owned
     Runtime, Project Shell adapter \uBC0F \uBA85\uC2DC\uC801 Addressables \uB4F1\uB85D
     \uACBD\uACC4\uB97C \uC81C\uACF5\uD569\uB2C8\uB2E4."
-  _releaseNote: "- `com.actionfit.cat.fonts@1.0.0`\uC744 \uC9C1\uC811 \uC870\uD569\uD574
-    Cat fallback asset\uACFC font policy \uC18C\uC720\uAD8C\uC744 \uACE0\uC815\uD588\uC2B5\uB2C8\uB2E4.\n-
-    `com.actionfit.lava-rush.ui@0.2.1`\uC758 shared Maplestory font \uACBD\uACC4\uC640
-    \uAE30\uC874 create-only Addressables \uB4F1\uB85D \uACC4\uC57D\uC744 \uD568\uAED8
-    \uC720\uC9C0\uD569\uB2C8\uB2E4.\n- Caution: font rights \uC2B9\uC778 \uC804 package
-    publish, Git tag \uC0DD\uC131\uACFC catalog \uB4F1\uB85D\uC740 \uAE08\uC9C0\uD569\uB2C8\uB2E4."
-  _dependenciesOverride: 
+  _releaseNote: "- `com.actionfit.lava-rush.ui@0.2.4`\uC640 `com.actionfit.ui.popup@0.1.2`\uB97C
+    \uACE0\uC815\uD574 \uBC30\uACBD \uBB3C\uB9AC \uC785\uB825 \uCC28\uB2E8\uACFC
+    ReferenceBinding package-owned Editor pump \uC804\uD658\uC744 dependency graph\uC5D0
+    \uBC18\uC601\uD588\uC2B5\uB2C8\uB2E4.\n- Cat composition, prefab, Addressable
+    identity\uC640 \uAE30\uC874 \uB7F0\uD0C0\uC784 \uB3D9\uC791\uC740 \uBCC0\uACBD\uD558\uC9C0
+    \uC54A\uC558\uC2B5\uB2C8\uB2E4."
+  _dependenciesOverride: com.actionfit.cat.fonts@1.0.0;com.actionfit.content-core@0.2.3;com.actionfit.lava-rush@0.1.11;com.actionfit.lava-rush.ui@0.2.4;com.actionfit.time@1.0.4;com.actionfit.ui.popup@0.1.2;com.unity.addressables@2.8.1;com.unity.localization@1.5.5;com.unity.ugui@2.0.0

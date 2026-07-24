@@ -1,6 +1,6 @@
 # Cat App (com.actionfit.cat.app)
 
-Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 패키지입니다. `0.2.1`은 `0.2.0`의 Lava Rush production 조합, 단일 engine, controller cache, 구독 수명, 호환 facade와 명시적 Addressables 등록 도구를 보존하면서 Cat 전용 fallback/font policy를 `com.actionfit.cat.fonts@1.0.0`에 직접 조합합니다. Lava Rush UI `0.2.1`의 shared-font 자산 경계와 호환되며, 프로젝트 저장소·에셋·생성 테이블·SDK·Addressable handle과 Unity lifecycle은 하나의 Project Shell seam에서 명시적으로 주입합니다.
+Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 패키지입니다. `0.2.2`는 기존 Lava Rush production 조합, 단일 engine, controller cache, 구독 수명, 호환 facade, 명시적 Addressables 등록 도구와 Cat font policy를 보존하면서 Lava Rush UI `0.2.4`와 UI Popup `0.1.2`를 고정합니다. UI의 배경 물리 입력 차단 수명과 ReferenceBinding package-owned Editor pump 전환은 prefab과 기존 런타임 계약을 변경하지 않으며, 프로젝트 저장소·에셋·생성 테이블·SDK·Addressable handle과 Unity lifecycle은 하나의 Project Shell seam에서 계속 명시적으로 주입합니다.
 
 ## 설치
 
@@ -9,7 +9,7 @@ Cat App은 Cat Merge Cafe를 위한 Public 제품 소유 composition root 패키
 ```json
 {
   "dependencies": {
-    "com.actionfit.cat.app": "https://github.com/ActionFit-Editor/Cat_App.git#0.2.1"
+    "com.actionfit.cat.app": "https://github.com/ActionFit-Editor/Cat_App.git#0.2.2"
   }
 }
 ```
