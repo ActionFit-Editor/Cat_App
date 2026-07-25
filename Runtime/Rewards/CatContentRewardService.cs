@@ -92,10 +92,10 @@ namespace ActionFit.Cat.App
         }
     }
 
-    public interface ICatContentRewardPersistence
+    public abstract class CatContentRewardPersistenceBase
     {
-        CatRewardLedger Load();
-        void SaveAndFlush(CatRewardLedger ledger);
+        public abstract CatRewardLedger Load();
+        public abstract void SaveAndFlush(CatRewardLedger ledger);
     }
 
     public sealed class CatRewardLedger
@@ -118,19 +118,19 @@ namespace ActionFit.Cat.App
         public bool Granted { get; set; }
     }
 
-    public sealed class CatContentRewardService : IContentRewardService
+    public sealed class CatContentRewardService : ContentRewardServiceBase
     {
         public const int CurrentSchemaVersion = 1;
         public const int PendingStatus = 1;
         public const int ConfirmedStatus = 2;
 
         private readonly object _sync = new object();
-        private readonly ICatContentRewardPersistence _persistence;
+        private readonly CatContentRewardPersistenceBase _persistence;
         private readonly Action<CatContentReward> _grantReward;
         private readonly Func<bool> _isAvailable;
 
         public CatContentRewardService(
-            ICatContentRewardPersistence persistence,
+            CatContentRewardPersistenceBase persistence,
             Action<CatContentReward> grantReward,
             Func<bool> isAvailable = null)
         {
@@ -139,9 +139,9 @@ namespace ActionFit.Cat.App
             _isAvailable = isAvailable ?? (() => true);
         }
 
-        public bool IsAvailable => _isAvailable();
+        public override bool IsAvailable => _isAvailable();
 
-        public bool HasGranted(string transactionId)
+        public override bool HasGranted(string transactionId)
         {
             transactionId = ValidateIdentifier(transactionId, nameof(transactionId));
             lock (_sync)
@@ -152,7 +152,7 @@ namespace ActionFit.Cat.App
             }
         }
 
-        public bool GrantOnce(string transactionId, IReadOnlyList<ContentReward> rewards)
+        public override bool GrantOnce(string transactionId, IReadOnlyList<ContentReward> rewards)
         {
             transactionId = ValidateIdentifier(transactionId, nameof(transactionId));
             List<CatContentReward> normalizedRewards = ValidateAndNormalizeRewards(rewards);

@@ -5,20 +5,20 @@ using ActionFit.LavaRush;
 
 namespace ActionFit.Cat.App
 {
-    public interface ICatLavaRushPersistence
+    public abstract class CatLavaRushPersistenceBase
     {
-        string LoadRuntimeState();
-        void SaveRuntimeState(string json);
-        void DeleteRuntimeState();
-        int LoadMigrationStatus();
-        void SaveMigrationStatus(int status);
-        void DeleteMigrationStatus();
-        string LoadCorruptRuntimeBackup();
-        void SaveCorruptRuntimeBackup(string json);
-        void DeleteCorruptRuntimeBackup();
-        CatLavaRushLegacySnapshot LoadLegacySnapshot(int maxStage);
-        void DeleteLegacyState();
-        void Flush();
+        public abstract string LoadRuntimeState();
+        public abstract void SaveRuntimeState(string json);
+        public abstract void DeleteRuntimeState();
+        public abstract int LoadMigrationStatus();
+        public abstract void SaveMigrationStatus(int status);
+        public abstract void DeleteMigrationStatus();
+        public abstract string LoadCorruptRuntimeBackup();
+        public abstract void SaveCorruptRuntimeBackup(string json);
+        public abstract void DeleteCorruptRuntimeBackup();
+        public abstract CatLavaRushLegacySnapshot LoadLegacySnapshot(int maxStage);
+        public abstract void DeleteLegacyState();
+        public abstract void Flush();
     }
 
     public sealed class CatLavaRushLegacySnapshot
@@ -44,32 +44,32 @@ namespace ActionFit.Cat.App
         public bool FinalRewardClaimed { get; set; }
     }
 
-    public sealed class CatLavaRushStateStore : IContentStateStore, IFlushableContentStateStore
+    public sealed class CatLavaRushStateStore : FlushableContentStateStoreBase
     {
-        private readonly ICatLavaRushPersistence _persistence;
+        private readonly CatLavaRushPersistenceBase _persistence;
 
-        public CatLavaRushStateStore(ICatLavaRushPersistence persistence)
+        public CatLavaRushStateStore(CatLavaRushPersistenceBase persistence)
         {
             _persistence = persistence ?? throw new ArgumentNullException(nameof(persistence));
         }
 
-        public bool TryLoad(string contentId, out string json)
+        public override bool TryLoad(string contentId, out string json)
         {
             json = _persistence.LoadRuntimeState();
             return !string.IsNullOrWhiteSpace(json);
         }
 
-        public void Save(string contentId, string json)
+        public override void Save(string contentId, string json)
         {
             _persistence.SaveRuntimeState(json ?? throw new ArgumentNullException(nameof(json)));
         }
 
-        public void Delete(string contentId)
+        public override void Delete(string contentId)
         {
             _persistence.DeleteRuntimeState();
         }
 
-        public void Flush()
+        public override void Flush()
         {
             _persistence.Flush();
         }
@@ -79,14 +79,14 @@ namespace ActionFit.Cat.App
     {
         public const int CompleteMigrationStatus = 1;
 
-        private readonly ICatLavaRushPersistence _persistence;
+        private readonly CatLavaRushPersistenceBase _persistence;
         private readonly Func<int, int> _getMaxStage;
         private readonly Func<long> _getLegacyNowTicks;
         private readonly Action<string> _report;
         private readonly Action<string> _reportError;
 
         public CatLavaRushPersistenceOwner(
-            ICatLavaRushPersistence persistence,
+            CatLavaRushPersistenceBase persistence,
             Func<int, int> getMaxStage,
             Func<long> getLegacyNowTicks,
             Action<string> report,
@@ -299,7 +299,7 @@ namespace ActionFit.Cat.App
         public IReadOnlyList<ContentReward> Rewards { get; }
     }
 
-    public sealed class CatLavaRushCatalogResolver : ILavaRushCatalogResolver
+    public sealed class CatLavaRushCatalogResolver : LavaRushCatalogResolverBase
     {
         private readonly Dictionary<int, int> _maxStages;
         private readonly LavaRushCatalog _catalog;
@@ -346,9 +346,9 @@ namespace ActionFit.Cat.App
             _catalog = new LavaRushCatalog(catalogVersion, balanceRevision, difficulties);
         }
 
-        public LavaRushCatalog Current => _catalog;
+        public override LavaRushCatalog Current => _catalog;
 
-        public bool TryResolve(string catalogVersion, string balanceRevision, out LavaRushCatalog catalog)
+        public override bool TryResolve(string catalogVersion, string balanceRevision, out LavaRushCatalog catalog)
         {
             catalog = string.Equals(_catalog.CatalogVersion, catalogVersion, StringComparison.Ordinal)
                 && string.Equals(_catalog.BalanceRevision, balanceRevision, StringComparison.Ordinal)

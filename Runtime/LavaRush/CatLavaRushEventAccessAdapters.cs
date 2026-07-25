@@ -105,7 +105,7 @@ namespace ActionFit.Cat.App.LavaRush
     {
         #region Fields
 
-        private readonly ILavaRushAccessService _accessService;
+        private readonly LavaRushAccessServiceBase _accessService;
         private readonly ILavaRushCountdownScheduler _countdownScheduler;
         private TMP_Text _timerText;
         private CatLavaRushAccessLifetime _activeLifetime;
@@ -113,7 +113,7 @@ namespace ActionFit.Cat.App.LavaRush
         #endregion
 
         public CatLavaRushLobbyAccessAdapter(
-            ILavaRushAccessService accessService,
+            LavaRushAccessServiceBase accessService,
             ILavaRushCountdownScheduler countdownScheduler)
         {
             _accessService = accessService ?? throw new ArgumentNullException(nameof(accessService));
@@ -207,7 +207,7 @@ namespace ActionFit.Cat.App.LavaRush
     {
         #region Fields
 
-        private readonly ILavaRushAccessService _accessService;
+        private readonly LavaRushAccessServiceBase _accessService;
         private readonly ILavaRushFrameScheduler _frameScheduler;
         private readonly ILavaRushCountdownScheduler _countdownScheduler;
         private TMP_Text _timerText;
@@ -217,7 +217,7 @@ namespace ActionFit.Cat.App.LavaRush
         #endregion
 
         public CatLavaRushInGameAccessAdapter(
-            ILavaRushAccessService accessService,
+            LavaRushAccessServiceBase accessService,
             ILavaRushFrameScheduler frameScheduler,
             ILavaRushCountdownScheduler countdownScheduler)
         {

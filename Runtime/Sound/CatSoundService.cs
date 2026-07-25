@@ -47,22 +47,22 @@ namespace ActionFit.Cat.App
     }
 
     /// <summary>Project Shell leaf that resolves product clip IDs to current clips and channels.</summary>
-    public interface ICatSoundPlaybackBackend
+    public abstract class CatSoundPlaybackBackendBase
     {
-        bool IsAvailable { get; }
-        void Play(CatSoundPlayback playback);
-        void RecoverAudioDevice();
+        public abstract bool IsAvailable { get; }
+        public abstract void Play(CatSoundPlayback playback);
+        public abstract void RecoverAudioDevice();
     }
 
-    public interface ICatSoundOptions
+    public abstract class CatSoundOptionsBase
     {
-        bool SoundEffectsEnabled { get; }
+        public abstract bool SoundEffectsEnabled { get; }
     }
 
     /// <summary>Project Shell signal for the existing Unity audio-configuration callback.</summary>
-    public interface ICatAudioConfigurationEvents
+    public abstract class CatAudioConfigurationEventsBase
     {
-        event Action<bool> ConfigurationChanged;
+        public abstract event Action<bool> ConfigurationChanged;
     }
 
     /// <summary>
@@ -71,16 +71,16 @@ namespace ActionFit.Cat.App
     /// </summary>
     public sealed class CatSoundService : IDisposable
     {
-        private readonly ICatSoundPlaybackBackend _backend;
-        private readonly ICatSoundOptions _options;
-        private readonly ICatAudioConfigurationEvents _configurationEvents;
+        private readonly CatSoundPlaybackBackendBase _backend;
+        private readonly CatSoundOptionsBase _options;
+        private readonly CatAudioConfigurationEventsBase _configurationEvents;
         private bool _initialized;
         private bool _disposed;
 
         public CatSoundService(
-            ICatSoundPlaybackBackend backend,
-            ICatSoundOptions options,
-            ICatAudioConfigurationEvents configurationEvents)
+            CatSoundPlaybackBackendBase backend,
+            CatSoundOptionsBase options,
+            CatAudioConfigurationEventsBase configurationEvents)
         {
             _backend = backend ?? throw new ArgumentNullException(nameof(backend));
             _options = options ?? throw new ArgumentNullException(nameof(options));

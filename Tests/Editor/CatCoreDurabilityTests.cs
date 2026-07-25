@@ -251,7 +251,7 @@ namespace ActionFit.Cat.App.Tests
             }
         }
 
-        private sealed class FakeLavaRushPersistence : ICatLavaRushPersistence
+        private sealed class FakeLavaRushPersistence : CatLavaRushPersistenceBase
         {
             public readonly List<string> Calls = new List<string>();
             public string RuntimeJson;
@@ -260,87 +260,87 @@ namespace ActionFit.Cat.App.Tests
             public CatLavaRushLegacySnapshot Legacy = new CatLavaRushLegacySnapshot();
             public string ExternalRewardLedger;
 
-            public string LoadRuntimeState()
+            public override string LoadRuntimeState()
             {
                 Calls.Add("load-runtime");
                 return RuntimeJson;
             }
 
-            public void SaveRuntimeState(string json)
+            public override void SaveRuntimeState(string json)
             {
                 Calls.Add("save-runtime");
                 RuntimeJson = json;
             }
 
-            public void DeleteRuntimeState()
+            public override void DeleteRuntimeState()
             {
                 Calls.Add("delete-runtime");
                 RuntimeJson = null;
             }
 
-            public int LoadMigrationStatus()
+            public override int LoadMigrationStatus()
             {
                 Calls.Add("load-migration");
                 return MigrationStatus;
             }
 
-            public void SaveMigrationStatus(int status)
+            public override void SaveMigrationStatus(int status)
             {
                 Calls.Add("save-migration");
                 MigrationStatus = status;
             }
 
-            public void DeleteMigrationStatus()
+            public override void DeleteMigrationStatus()
             {
                 Calls.Add("delete-migration");
                 MigrationStatus = 0;
             }
 
-            public string LoadCorruptRuntimeBackup()
+            public override string LoadCorruptRuntimeBackup()
             {
                 Calls.Add("load-backup");
                 return CorruptBackup;
             }
 
-            public void SaveCorruptRuntimeBackup(string json)
+            public override void SaveCorruptRuntimeBackup(string json)
             {
                 Calls.Add("save-backup");
                 CorruptBackup = json;
             }
 
-            public void DeleteCorruptRuntimeBackup()
+            public override void DeleteCorruptRuntimeBackup()
             {
                 Calls.Add("delete-backup");
                 CorruptBackup = null;
             }
 
-            public CatLavaRushLegacySnapshot LoadLegacySnapshot(int maxStage)
+            public override CatLavaRushLegacySnapshot LoadLegacySnapshot(int maxStage)
             {
                 Calls.Add($"load-legacy:{maxStage}");
                 return Legacy;
             }
 
-            public void DeleteLegacyState()
+            public override void DeleteLegacyState()
             {
                 Calls.Add("delete-legacy");
             }
 
-            public void Flush()
+            public override void Flush()
             {
                 Calls.Add("flush");
             }
         }
 
-        private sealed class FakeRewardPersistence : ICatContentRewardPersistence
+        private sealed class FakeRewardPersistence : CatContentRewardPersistenceBase
         {
             public CatRewardLedger Snapshot;
 
-            public CatRewardLedger Load()
+            public override CatRewardLedger Load()
             {
                 return Clone(Snapshot);
             }
 
-            public void SaveAndFlush(CatRewardLedger ledger)
+            public override void SaveAndFlush(CatRewardLedger ledger)
             {
                 Snapshot = Clone(ledger);
             }
@@ -388,11 +388,11 @@ namespace ActionFit.Cat.App.Tests
             }
         }
 
-        private sealed class NullRewardService : IContentRewardService
+        private sealed class NullRewardService : ContentRewardServiceBase
         {
-            public bool IsAvailable => true;
-            public bool HasGranted(string transactionId) => false;
-            public bool GrantOnce(string transactionId, IReadOnlyList<ContentReward> rewards) => true;
+            public override bool IsAvailable => true;
+            public override bool HasGranted(string transactionId) => false;
+            public override bool GrantOnce(string transactionId, IReadOnlyList<ContentReward> rewards) => true;
         }
 
         private sealed class LegacyClock : ILavaRushLegacyLocalClock
@@ -405,26 +405,26 @@ namespace ActionFit.Cat.App.Tests
             public DateTime Now { get; }
         }
 
-        private sealed class FixedRandom : ILavaRushRandom
+        private sealed class FixedRandom : LavaRushRandomBase
         {
-            public int Range(int minInclusive, int maxExclusive) => minInclusive;
+            public override int Range(int minInclusive, int maxExclusive) => minInclusive;
         }
 
-        private sealed class FixedCurve : ILavaRushSeatCurveProvider
+        private sealed class FixedCurve : LavaRushSeatCurveProviderBase
         {
-            public int CurveCount => 1;
-            public float Evaluate(int curveIndex, float normalizedTime) => normalizedTime;
+            public override int CurveCount => 1;
+            public override float Evaluate(int curveIndex, float normalizedTime) => normalizedTime;
         }
 
-        private sealed class AllowAccess : ILavaRushAccessPolicy
+        private sealed class AllowAccess : LavaRushAccessPolicyBase
         {
-            public bool IsAccessAllowed => true;
+            public override bool IsAccessAllowed => true;
         }
 
-        private sealed class EnabledSchedule : ILavaRushSchedulePolicy
+        private sealed class EnabledSchedule : LavaRushSchedulePolicyBase
         {
-            public bool IsEnabled => true;
-            public bool IsActiveDay(DayOfWeek dayOfWeek) => true;
+            public override bool IsEnabled => true;
+            public override bool IsActiveDay(DayOfWeek dayOfWeek) => true;
         }
     }
 }

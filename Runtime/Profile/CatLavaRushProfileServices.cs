@@ -90,35 +90,35 @@ namespace ActionFit.Cat.App
     }
 
     /// <summary>Supplies current player identity without moving profile persistence into the product package.</summary>
-    public interface ICatPlayerProfileSource
+    public abstract class CatPlayerProfileSourceBase
     {
-        CatPlayerProfileRecord ReadPlayer();
+        public abstract CatPlayerProfileRecord ReadPlayer();
     }
 
     /// <summary>Supplies primitive bot records through the current Project Shell persistence owner.</summary>
-    public interface ICatBotProfileStore
+    public abstract class CatBotProfileStoreBase
     {
-        string LoadName(string key);
-        string LoadProfileId(string key, string defaultValue);
-        string LoadFrameId(string key, string defaultValue);
-        void Save(string key, CatBotProfileRecord record);
-        void Delete(string key);
+        public abstract string LoadName(string key);
+        public abstract string LoadProfileId(string key, string defaultValue);
+        public abstract string LoadFrameId(string key, string defaultValue);
+        public abstract void Save(string key, CatBotProfileRecord record);
+        public abstract void Delete(string key);
     }
 
     /// <summary>Supplies ordered Cat-authored profile, frame, and five-language bot-name inputs.</summary>
-    public interface ICatLavaRushProfileCatalog
+    public abstract class CatLavaRushProfileCatalogBase
     {
-        DateTime LocalNow { get; }
-        IReadOnlyList<string> GetBotNames(CatBotNameLanguage language);
-        IReadOnlyList<CatProfileCandidate> CharacterProfiles { get; }
-        IReadOnlyList<CatProfileCandidate> AuthoredProfiles { get; }
-        IReadOnlyList<CatProfileCandidate> AuthoredFrames { get; }
-        int GetHorizontalDirection(string profileId);
+        public abstract DateTime LocalNow { get; }
+        public abstract IReadOnlyList<string> GetBotNames(CatBotNameLanguage language);
+        public abstract IReadOnlyList<CatProfileCandidate> CharacterProfiles { get; }
+        public abstract IReadOnlyList<CatProfileCandidate> AuthoredProfiles { get; }
+        public abstract IReadOnlyList<CatProfileCandidate> AuthoredFrames { get; }
+        public abstract int GetHorizontalDirection(string profileId);
     }
 
-    public interface ICatRandomSource
+    public abstract class CatRandomSourceBase
     {
-        int Range(int minInclusive, int maxExclusive);
+        public abstract int Range(int minInclusive, int maxExclusive);
     }
 
     /// <summary>
@@ -140,14 +140,14 @@ namespace ActionFit.Cat.App
             CatBotNameLanguage.TraditionalChinese,
         };
 
-        private readonly ICatBotProfileStore _store;
-        private readonly ICatLavaRushProfileCatalog _catalog;
-        private readonly ICatRandomSource _random;
+        private readonly CatBotProfileStoreBase _store;
+        private readonly CatLavaRushProfileCatalogBase _catalog;
+        private readonly CatRandomSourceBase _random;
 
         public CatBotProfileService(
-            ICatBotProfileStore store,
-            ICatLavaRushProfileCatalog catalog,
-            ICatRandomSource random)
+            CatBotProfileStoreBase store,
+            CatLavaRushProfileCatalogBase catalog,
+            CatRandomSourceBase random)
         {
             _store = store ?? throw new ArgumentNullException(nameof(store));
             _catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
@@ -262,20 +262,20 @@ namespace ActionFit.Cat.App
     }
 
     /// <summary>Adapts Cat player and bot services to the reusable Lava Rush roster contract.</summary>
-    public sealed class CatLavaRushProfileRoster : ILavaRushProfileRoster
+    public sealed class CatLavaRushProfileRoster : LavaRushProfileRosterBase
     {
-        private readonly ICatPlayerProfileSource _player;
+        private readonly CatPlayerProfileSourceBase _player;
         private readonly CatBotProfileService _bots;
 
         public CatLavaRushProfileRoster(
-            ICatPlayerProfileSource player,
+            CatPlayerProfileSourceBase player,
             CatBotProfileService bots)
         {
             _player = player ?? throw new ArgumentNullException(nameof(player));
             _bots = bots ?? throw new ArgumentNullException(nameof(bots));
         }
 
-        public LavaRushProfileSnapshot GetPlayer()
+        public override LavaRushProfileSnapshot GetPlayer()
         {
             CatPlayerProfileRecord player = _player.ReadPlayer();
             return new LavaRushProfileSnapshot(
@@ -285,7 +285,7 @@ namespace ActionFit.Cat.App
                 player.HorizontalDirection);
         }
 
-        public LavaRushProfileSnapshot LoadOrGenerateOpponent(int stage, int slot)
+        public override LavaRushProfileSnapshot LoadOrGenerateOpponent(int stage, int slot)
         {
             ValidateStageAndSlot(stage, slot);
             CatBotProfileRecord bot = _bots.LoadOrGenerate(EnemyBotKey(stage, slot));
@@ -296,7 +296,7 @@ namespace ActionFit.Cat.App
                 _bots.GetHorizontalDirection(bot.ProfileId));
         }
 
-        public void DeleteOpponents(int stage, int slotCount)
+        public override void DeleteOpponents(int stage, int slotCount)
         {
             if (stage < 0)
                 throw new ArgumentOutOfRangeException(nameof(stage));

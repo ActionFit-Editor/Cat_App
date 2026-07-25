@@ -5,7 +5,7 @@ using ActionFit.LavaRush.UI;
 namespace ActionFit.Cat.App.LavaRush
 {
     /// <summary>Converts synchronous Cat order completions into enabled-lifetime Lava Rush progress.</summary>
-    public sealed class CatLavaRushOrderProgressSource : ILavaRushOrderProgressSource
+    public sealed class CatLavaRushOrderProgressSource : LavaRushOrderProgressSourceBase
     {
         #region Fields
 
@@ -29,7 +29,7 @@ namespace ActionFit.Cat.App.LavaRush
         #region Public Methods
 
         /// <summary>Pairs the Cat completion feed and OrderList provider with one enabled lifetime.</summary>
-        public IDisposable Subscribe(Action<int> onOrderProgress)
+        public override IDisposable Subscribe(Action<int> onOrderProgress)
         {
             if (onOrderProgress == null)
             {

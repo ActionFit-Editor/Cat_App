@@ -15,17 +15,17 @@ namespace ActionFit.Cat.App.LavaRush
     public sealed class CatLavaRushEngineBinding
     {
         public CatLavaRushEngineBinding(
-            IContentStateStore stateStore,
-            IContentRewardService rewardService,
-            ILavaRushCatalogResolver catalogResolver,
-            IClock utcClock,
+            ContentStateStoreBase stateStore,
+            ContentRewardServiceBase rewardService,
+            LavaRushCatalogResolverBase catalogResolver,
+            ClockBase utcClock,
             TimeZoneInfo calendarTimeZone,
             ILavaRushLegacyLocalClock legacyLocalClock,
-            ILavaRushRandom random,
-            ILavaRushSeatCurveProvider seatCurveProvider,
-            ILavaRushAccessPolicy accessPolicy,
-            ILavaRushSchedulePolicy schedulePolicy,
-            ILavaRushAnalyticsSink analytics,
+            LavaRushRandomBase random,
+            LavaRushSeatCurveProviderBase seatCurveProvider,
+            LavaRushAccessPolicyBase accessPolicy,
+            LavaRushSchedulePolicyBase schedulePolicy,
+            LavaRushAnalyticsSinkBase analytics,
             CatLavaRushPersistenceOwner persistenceOwner,
             Func<bool> isPersistenceReady,
             Func<DateTime> getLocalNow,
@@ -59,17 +59,17 @@ namespace ActionFit.Cat.App.LavaRush
             CalendarDayBoundaryOffset = calendarDayBoundaryOffset;
         }
 
-        public IContentStateStore StateStore { get; }
-        public IContentRewardService RewardService { get; }
-        public ILavaRushCatalogResolver CatalogResolver { get; }
-        public IClock UtcClock { get; }
+        public ContentStateStoreBase StateStore { get; }
+        public ContentRewardServiceBase RewardService { get; }
+        public LavaRushCatalogResolverBase CatalogResolver { get; }
+        public ClockBase UtcClock { get; }
         public TimeZoneInfo CalendarTimeZone { get; }
         public ILavaRushLegacyLocalClock LegacyLocalClock { get; }
-        public ILavaRushRandom Random { get; }
-        public ILavaRushSeatCurveProvider SeatCurveProvider { get; }
-        public ILavaRushAccessPolicy AccessPolicy { get; }
-        public ILavaRushSchedulePolicy SchedulePolicy { get; }
-        public ILavaRushAnalyticsSink Analytics { get; }
+        public LavaRushRandomBase Random { get; }
+        public LavaRushSeatCurveProviderBase SeatCurveProvider { get; }
+        public LavaRushAccessPolicyBase AccessPolicy { get; }
+        public LavaRushSchedulePolicyBase SchedulePolicy { get; }
+        public LavaRushAnalyticsSinkBase Analytics { get; }
         public CatLavaRushPersistenceOwner PersistenceOwner { get; }
         public Func<bool> IsPersistenceReady { get; }
         public Func<DateTime> GetLocalNow { get; }
@@ -86,13 +86,13 @@ namespace ActionFit.Cat.App.LavaRush
         public CatLavaRushControllerRuntime(
             ILavaRushFrameScheduler frameScheduler,
             ILavaRushCountdownScheduler countdownScheduler,
-            ILavaRushAudio audio,
+            LavaRushAudioBase audio,
             ILavaRushUILocalizer localizer,
-            ILavaRushUIRewardRenderer rewardRenderer,
-            ILavaRushProfileRoster profiles,
-            ILavaRushProfileGroupFactory profileGroupFactory,
-            ILavaRushTutorialFocusSpriteProvider tutorialFocusSprites,
-            ILavaRushRewardPresentationProvider rewardPresentation,
+            LavaRushUIRewardRendererBase rewardRenderer,
+            LavaRushProfileRosterBase profiles,
+            LavaRushProfileGroupFactoryBase profileGroupFactory,
+            LavaRushTutorialFocusSpriteProviderBase tutorialFocusSprites,
+            LavaRushRewardPresentationProviderBase rewardPresentation,
             IDisposable lifetime)
         {
             FrameScheduler = frameScheduler
@@ -115,13 +115,13 @@ namespace ActionFit.Cat.App.LavaRush
 
         public ILavaRushFrameScheduler FrameScheduler { get; }
         public ILavaRushCountdownScheduler CountdownScheduler { get; }
-        public ILavaRushAudio Audio { get; }
+        public LavaRushAudioBase Audio { get; }
         public ILavaRushUILocalizer Localizer { get; }
-        public ILavaRushUIRewardRenderer RewardRenderer { get; }
-        public ILavaRushProfileRoster Profiles { get; }
-        public ILavaRushProfileGroupFactory ProfileGroupFactory { get; }
-        public ILavaRushTutorialFocusSpriteProvider TutorialFocusSprites { get; }
-        public ILavaRushRewardPresentationProvider RewardPresentation { get; }
+        public LavaRushUIRewardRendererBase RewardRenderer { get; }
+        public LavaRushProfileRosterBase Profiles { get; }
+        public LavaRushProfileGroupFactoryBase ProfileGroupFactory { get; }
+        public LavaRushTutorialFocusSpriteProviderBase TutorialFocusSprites { get; }
+        public LavaRushRewardPresentationProviderBase RewardPresentation { get; }
 
         public void Dispose()
         {

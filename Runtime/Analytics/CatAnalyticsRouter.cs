@@ -5,27 +5,27 @@ using System.Collections.Generic;
 namespace ActionFit.Cat.App
 {
     /// <summary>Project Shell leaf for ThinkingData readiness and tracking.</summary>
-    public interface ICatAnalyticsPrimaryDestination
+    public abstract class CatAnalyticsPrimaryDestinationBase
     {
-        bool IsReady { get; }
-        void Track(string eventName, IReadOnlyDictionary<string, object> properties);
+        public abstract bool IsReady { get; }
+        public abstract void Track(string eventName, IReadOnlyDictionary<string, object> properties);
     }
 
     /// <summary>Project Shell leaf for the current Singular mirror behavior.</summary>
-    public interface ICatAnalyticsMirrorDestination
+    public abstract class CatAnalyticsMirrorDestinationBase
     {
-        void Track(string eventName, IReadOnlyDictionary<string, object> properties);
+        public abstract void Track(string eventName, IReadOnlyDictionary<string, object> properties);
     }
 
     /// <summary>Owns Cat TD-first routing, readiness drop, and Singular reward flattening.</summary>
     public sealed class CatAnalyticsRouter
     {
-        private readonly ICatAnalyticsPrimaryDestination _primary;
-        private readonly ICatAnalyticsMirrorDestination _mirror;
+        private readonly CatAnalyticsPrimaryDestinationBase _primary;
+        private readonly CatAnalyticsMirrorDestinationBase _mirror;
 
         public CatAnalyticsRouter(
-            ICatAnalyticsPrimaryDestination primary,
-            ICatAnalyticsMirrorDestination mirror)
+            CatAnalyticsPrimaryDestinationBase primary,
+            CatAnalyticsMirrorDestinationBase mirror)
         {
             _primary = primary ?? throw new ArgumentNullException(nameof(primary));
             _mirror = mirror ?? throw new ArgumentNullException(nameof(mirror));

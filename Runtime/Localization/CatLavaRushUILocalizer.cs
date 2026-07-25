@@ -26,14 +26,14 @@ namespace ActionFit.Cat.App
     }
 
     /// <summary>Project table and locale-change leaf used by the Cat product mapping.</summary>
-    public interface ICatLocalizationEnvironment
+    public abstract class CatLocalizationEnvironmentBase
     {
-        event Action LocaleChanged;
-        string GetLocalizedString(string table, string entry);
+        public abstract event Action LocaleChanged;
+        public abstract string GetLocalizedString(string table, string entry);
     }
 
     /// <summary>Direct Unity Localization leaf; Cat localization assets remain project-owned.</summary>
-    public sealed class UnityCatLocalizationEnvironment : ICatLocalizationEnvironment, IDisposable
+    public sealed class UnityCatLocalizationEnvironment : CatLocalizationEnvironmentBase, IDisposable
     {
         private bool _disposed;
 
@@ -42,9 +42,9 @@ namespace ActionFit.Cat.App
             LocalizationSettings.SelectedLocaleChanged += HandleSelectedLocaleChanged;
         }
 
-        public event Action LocaleChanged;
+        public override event Action LocaleChanged;
 
-        public string GetLocalizedString(string table, string entry)
+        public override string GetLocalizedString(string table, string entry)
         {
             if (_disposed)
                 throw new ObjectDisposedException(nameof(UnityCatLocalizationEnvironment));
@@ -71,8 +71,8 @@ namespace ActionFit.Cat.App
     /// explicit live-refresh lifetime.
     /// </summary>
     public sealed class CatLavaRushUILocalizer :
+        LavaRushLocalizationRefreshSourceBase,
         ILavaRushUILocalizer,
-        ILavaRushLocalizationRefreshSource,
         IDisposable
     {
         public const string TableName = "General";
@@ -99,12 +99,12 @@ namespace ActionFit.Cat.App
             new(LavaRushLocalizationKeys.MatchWinComplete, "lavarush_win_desc3", 42741409722130432L, false),
         };
 
-        private readonly ICatLocalizationEnvironment _environment;
+        private readonly CatLocalizationEnvironmentBase _environment;
         private readonly Dictionary<string, CatLavaRushLocalizationEntry> _entryBySemanticKey;
         private bool _initialized;
         private bool _disposed;
 
-        public CatLavaRushUILocalizer(ICatLocalizationEnvironment environment)
+        public CatLavaRushUILocalizer(CatLocalizationEnvironmentBase environment)
         {
             _environment = environment ?? throw new ArgumentNullException(nameof(environment));
             _entryBySemanticKey = BuildMapping();
@@ -112,7 +112,7 @@ namespace ActionFit.Cat.App
 
         public static IReadOnlyList<CatLavaRushLocalizationEntry> Mappings => Entries;
 
-        public event Action LocaleChanged;
+        public override event Action LocaleChanged;
 
         public void Initialize()
         {

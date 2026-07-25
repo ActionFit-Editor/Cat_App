@@ -230,7 +230,7 @@ namespace ActionFit.Cat.App.Tests
             };
         }
 
-        private sealed class FakeStore : ICatBotProfileStore
+        private sealed class FakeStore : CatBotProfileStoreBase
         {
             public string Name;
             public string ProfileId;
@@ -238,19 +238,19 @@ namespace ActionFit.Cat.App.Tests
             public int SaveCount;
             public string LastKey;
 
-            public string LoadName(string key)
+            public override string LoadName(string key)
             {
                 LastKey = key;
                 return Name;
             }
 
-            public string LoadProfileId(string key, string defaultValue) =>
+            public override string LoadProfileId(string key, string defaultValue) =>
                 ProfileId ?? defaultValue;
 
-            public string LoadFrameId(string key, string defaultValue) =>
+            public override string LoadFrameId(string key, string defaultValue) =>
                 FrameId ?? defaultValue;
 
-            public void Save(string key, CatBotProfileRecord record)
+            public override void Save(string key, CatBotProfileRecord record)
             {
                 LastKey = key;
                 Name = record.Name;
@@ -259,7 +259,7 @@ namespace ActionFit.Cat.App.Tests
                 SaveCount++;
             }
 
-            public void Delete(string key)
+            public override void Delete(string key)
             {
                 LastKey = key;
                 Name = null;
@@ -268,7 +268,7 @@ namespace ActionFit.Cat.App.Tests
             }
         }
 
-        private sealed class FakeCatalog : ICatLavaRushProfileCatalog
+        private sealed class FakeCatalog : CatLavaRushProfileCatalogBase
         {
             public readonly Dictionary<CatBotNameLanguage, IReadOnlyList<string>> Names = new();
             public readonly List<CatProfileCandidate> Characters = new();
@@ -276,10 +276,10 @@ namespace ActionFit.Cat.App.Tests
             public readonly List<CatProfileCandidate> Frames = new();
             public int Direction;
 
-            public DateTime LocalNow => new(2026, 7, 24);
-            public IReadOnlyList<CatProfileCandidate> CharacterProfiles => Characters;
-            public IReadOnlyList<CatProfileCandidate> AuthoredProfiles => Profiles;
-            public IReadOnlyList<CatProfileCandidate> AuthoredFrames => Frames;
+            public override DateTime LocalNow => new(2026, 7, 24);
+            public override IReadOnlyList<CatProfileCandidate> CharacterProfiles => Characters;
+            public override IReadOnlyList<CatProfileCandidate> AuthoredProfiles => Profiles;
+            public override IReadOnlyList<CatProfileCandidate> AuthoredFrames => Frames;
 
             public static FakeCatalog Create()
             {
@@ -289,11 +289,11 @@ namespace ActionFit.Cat.App.Tests
                 return result;
             }
 
-            public IReadOnlyList<string> GetBotNames(CatBotNameLanguage language) => Names[language];
-            public int GetHorizontalDirection(string profileId) => Direction;
+            public override IReadOnlyList<string> GetBotNames(CatBotNameLanguage language) => Names[language];
+            public override int GetHorizontalDirection(string profileId) => Direction;
         }
 
-        private sealed class QueueRandom : ICatRandomSource
+        private sealed class QueueRandom : CatRandomSourceBase
         {
             private readonly Queue<int> _values;
             public readonly List<string> Ranges = new();
@@ -303,48 +303,49 @@ namespace ActionFit.Cat.App.Tests
                 _values = new Queue<int>(values);
             }
 
-            public int Range(int minInclusive, int maxExclusive)
+            public override int Range(int minInclusive, int maxExclusive)
             {
                 Ranges.Add($"{minInclusive}:{maxExclusive}");
                 return _values.Count == 0 ? minInclusive : _values.Dequeue();
             }
         }
 
-        private sealed class FakePlayer : ICatPlayerProfileSource
+        private sealed class FakePlayer : CatPlayerProfileSourceBase
         {
-            public CatPlayerProfileRecord ReadPlayer() =>
+            public override CatPlayerProfileRecord ReadPlayer() =>
                 new("Player", "0", "frame_blue", 1);
         }
 
-        private sealed class FakeSoundBackend : ICatSoundPlaybackBackend
+        private sealed class FakeSoundBackend : CatSoundPlaybackBackendBase
         {
-            public bool IsAvailable { get; set; } = true;
+            public bool Available = true;
+            public override bool IsAvailable => Available;
             public int PlayCount;
             public int RecoverCount;
             public readonly List<CatSoundPlayback> Playbacks = new();
 
-            public void Play(CatSoundPlayback playback)
+            public override void Play(CatSoundPlayback playback)
             {
                 PlayCount++;
                 Playbacks.Add(playback);
             }
 
-            public void RecoverAudioDevice() => RecoverCount++;
+            public override void RecoverAudioDevice() => RecoverCount++;
         }
 
-        private sealed class FakeSoundOptions : ICatSoundOptions
+        private sealed class FakeSoundOptions : CatSoundOptionsBase
         {
             public bool Enabled;
-            public bool SoundEffectsEnabled => Enabled;
+            public override bool SoundEffectsEnabled => Enabled;
         }
 
-        private sealed class FakeAudioEvents : ICatAudioConfigurationEvents
+        private sealed class FakeAudioEvents : CatAudioConfigurationEventsBase
         {
             private Action<bool> _configurationChanged;
             public int SubscribeCount;
             public int UnsubscribeCount;
 
-            public event Action<bool> ConfigurationChanged
+            public override event Action<bool> ConfigurationChanged
             {
                 add
                 {
@@ -361,12 +362,12 @@ namespace ActionFit.Cat.App.Tests
             public void Raise(bool deviceChanged) => _configurationChanged?.Invoke(deviceChanged);
         }
 
-        private sealed class FakeLocalization : ICatLocalizationEnvironment
+        private sealed class FakeLocalization : CatLocalizationEnvironmentBase
         {
             public readonly Dictionary<string, string> Values = new();
-            public event Action LocaleChanged;
+            public override event Action LocaleChanged;
 
-            public string GetLocalizedString(string table, string entry)
+            public override string GetLocalizedString(string table, string entry)
             {
                 Assert.That(table, Is.EqualTo("General"));
                 return Values.TryGetValue(entry, out string value) ? value : "";
@@ -375,7 +376,7 @@ namespace ActionFit.Cat.App.Tests
             public void Raise() => LocaleChanged?.Invoke();
         }
 
-        private sealed class FakePrimary : ICatAnalyticsPrimaryDestination
+        private sealed class FakePrimary : CatAnalyticsPrimaryDestinationBase
         {
             private readonly IList<string> _calls;
             public bool Ready;
@@ -387,9 +388,9 @@ namespace ActionFit.Cat.App.Tests
                 _calls = calls;
             }
 
-            public bool IsReady => Ready;
+            public override bool IsReady => Ready;
 
-            public void Track(string eventName, IReadOnlyDictionary<string, object> properties)
+            public override void Track(string eventName, IReadOnlyDictionary<string, object> properties)
             {
                 _calls.Add($"primary:{eventName}");
                 EventNames.Add(eventName);
@@ -397,7 +398,7 @@ namespace ActionFit.Cat.App.Tests
             }
         }
 
-        private sealed class FakeMirror : ICatAnalyticsMirrorDestination
+        private sealed class FakeMirror : CatAnalyticsMirrorDestinationBase
         {
             private readonly IList<string> _calls;
             public IReadOnlyDictionary<string, object> Last;
@@ -407,18 +408,18 @@ namespace ActionFit.Cat.App.Tests
                 _calls = calls;
             }
 
-            public void Track(string eventName, IReadOnlyDictionary<string, object> properties)
+            public override void Track(string eventName, IReadOnlyDictionary<string, object> properties)
             {
                 _calls.Add($"mirror:{eventName}");
                 Last = properties;
             }
         }
 
-        private sealed class FakeRewards : ICatLavaRushRewardAnalyticsCatalog
+        private sealed class FakeRewards : CatLavaRushRewardAnalyticsCatalogBase
         {
             public IReadOnlyList<CatAnalyticsReward> Rows = Array.Empty<CatAnalyticsReward>();
 
-            public bool TryGet(
+            public override bool TryGet(
                 int difficulty,
                 int stage,
                 out IReadOnlyList<CatAnalyticsReward> rewards)

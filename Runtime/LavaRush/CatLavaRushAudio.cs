@@ -5,7 +5,7 @@ using ActionFit.LavaRush.UI;
 namespace ActionFit.Cat.App
 {
     /// <summary>Maps every restored Lava Rush cue to the current Cat playback meaning.</summary>
-    public sealed class CatLavaRushAudio : ILavaRushAudio
+    public sealed class CatLavaRushAudio : LavaRushAudioBase
     {
         public const string MixerGroup = "SFX";
         public const float DefaultVolume = 0.5f;
@@ -24,7 +24,7 @@ namespace ActionFit.Cat.App
             ValidateCompleteMapping();
         }
 
-        public void Play(LavaRushAudioCue cue)
+        public override void Play(LavaRushAudioCue cue)
         {
             CatSoundChannel channel = cue == LavaRushAudioCue.TutorialStep
                 ? CatSoundChannel.Single
@@ -39,7 +39,7 @@ namespace ActionFit.Cat.App
                 1f));
         }
 
-        public void PlayPitched(
+        public override void PlayPitched(
             LavaRushAudioCue cue,
             float volume,
             float pitchMin,

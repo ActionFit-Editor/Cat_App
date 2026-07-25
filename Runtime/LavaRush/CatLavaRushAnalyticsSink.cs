@@ -43,9 +43,9 @@ namespace ActionFit.Cat.App
     }
 
     /// <summary>Project Shell conversion of generated reward rows into primitive analytics input.</summary>
-    public interface ICatLavaRushRewardAnalyticsCatalog
+    public abstract class CatLavaRushRewardAnalyticsCatalogBase
     {
-        bool TryGet(
+        public abstract bool TryGet(
             int difficulty,
             int stage,
             out IReadOnlyList<CatAnalyticsReward> rewards);
@@ -55,7 +55,7 @@ namespace ActionFit.Cat.App
     /// Implements the existing six-method engine sink with Cat event names, schemas, drop rules,
     /// and TD-to-Singular ordering.
     /// </summary>
-    public sealed class CatLavaRushAnalyticsSink : ILavaRushAnalyticsSink
+    public sealed class CatLavaRushAnalyticsSink : LavaRushAnalyticsSinkBase
     {
         public const string EventStartName = "te_lavarush_event_start";
         public const string TutorialCompleteName = "te_lavarush_tutorial_complete";
@@ -65,17 +65,17 @@ namespace ActionFit.Cat.App
         public const string EventEndName = "te_lavarush_event_end";
 
         private readonly CatAnalyticsRouter _router;
-        private readonly ICatLavaRushRewardAnalyticsCatalog _rewards;
+        private readonly CatLavaRushRewardAnalyticsCatalogBase _rewards;
 
         public CatLavaRushAnalyticsSink(
             CatAnalyticsRouter router,
-            ICatLavaRushRewardAnalyticsCatalog rewards)
+            CatLavaRushRewardAnalyticsCatalogBase rewards)
         {
             _router = router ?? throw new ArgumentNullException(nameof(router));
             _rewards = rewards ?? throw new ArgumentNullException(nameof(rewards));
         }
 
-        public void EventStarted(int remainingSeconds)
+        public override void EventStarted(int remainingSeconds)
         {
             _router.Track(
                 EventStartName,
@@ -85,7 +85,7 @@ namespace ActionFit.Cat.App
                 });
         }
 
-        public void TutorialCompleted(int difficulty)
+        public override void TutorialCompleted(int difficulty)
         {
             _router.Track(
                 TutorialCompleteName,
@@ -95,7 +95,7 @@ namespace ActionFit.Cat.App
                 });
         }
 
-        public void StageStarted(
+        public override void StageStarted(
             int difficulty,
             int stage,
             int requiredProgress,
@@ -112,7 +112,7 @@ namespace ActionFit.Cat.App
                 });
         }
 
-        public void StageEnded(
+        public override void StageEnded(
             int difficulty,
             int stage,
             LavaRushResult result,
@@ -133,7 +133,7 @@ namespace ActionFit.Cat.App
                 });
         }
 
-        public void RewardClaimed(int difficulty, int stage, bool isFinal)
+        public override void RewardClaimed(int difficulty, int stage, bool isFinal)
         {
             if (!_rewards.TryGet(difficulty, stage, out IReadOnlyList<CatAnalyticsReward> rewards)
                 || rewards == null
@@ -166,7 +166,7 @@ namespace ActionFit.Cat.App
                 flattenRewardForMirror: true);
         }
 
-        public void EventEnded(int difficulty, int completedStages, bool completed)
+        public override void EventEnded(int difficulty, int completedStages, bool completed)
         {
             // Intentionally no replay guard: repeated direct EndEvent calls remain observable.
             _router.Track(

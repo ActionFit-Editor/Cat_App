@@ -28,7 +28,7 @@ namespace ActionFit.Cat.App.LavaRush
     }
 
     /// <summary>Adapts the current Cat manager access state to the neutral Lava Rush UI port.</summary>
-    public sealed class CatLavaRushAccessService : ILavaRushAccessService
+    public sealed class CatLavaRushAccessService : LavaRushAccessServiceBase
     {
         private readonly CatLavaRushAccessBinding _binding;
 
@@ -37,11 +37,11 @@ namespace ActionFit.Cat.App.LavaRush
             _binding = binding ?? throw new ArgumentNullException(nameof(binding));
         }
 
-        public bool IsEventActive => _binding.IsEventActive();
-        public bool IsEventStarted => _binding.IsEventStarted();
-        public DateTime EventEndTime => _binding.EventEndTime();
-        public TimeSpan EventRemainTime => _binding.EventRemainTime();
+        public override bool IsEventActive => _binding.IsEventActive();
+        public override bool IsEventStarted => _binding.IsEventStarted();
+        public override DateTime EventEndTime => _binding.EventEndTime();
+        public override TimeSpan EventRemainTime => _binding.EventRemainTime();
 
-        public void OpenContent() => _binding.OpenContent();
+        public override void OpenContent() => _binding.OpenContent();
     }
 }
