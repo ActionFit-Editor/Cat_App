@@ -1,21 +1,14 @@
 {
   "name": "com.actionfit.cat.app",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "displayName": "Cat App",
-  "description": "Cat Merge Cafe product composition root with package-owned runtime service and project-adapter boundaries.",
+  "description": "Shared Cat product loop, countdown, reward, sound, analytics, and order-completion services.",
   "unity": "6000.2",
   "author": {
     "name": "ActionFit"
   },
   "dependencies": {
     "com.actionfit.cat.fonts": "2.0.0",
-    "com.actionfit.content-core": "0.3.0",
-    "com.actionfit.lava-rush": "0.2.0",
-    "com.actionfit.lava-rush.ui": "0.3.0",
-    "com.actionfit.time": "2.0.0",
-    "com.actionfit.ui.popup": "0.2.0",
-    "com.unity.addressables": "2.8.1",
-    "com.unity.localization": "1.5.5",
-    "com.unity.ugui": "2.0.0"
+    "com.actionfit.content-core": "0.3.0"
   }
 }

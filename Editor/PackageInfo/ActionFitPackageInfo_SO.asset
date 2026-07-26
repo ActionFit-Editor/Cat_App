@@ -18,14 +18,13 @@ MonoBehaviour:
   _repositoryVisibility: 0
   _owner: ActionFit
   _status: candidate
-  _description: "Cat Merge Cafe \uC81C\uD488 composition root\uC640 package-owned
-    Runtime, Project Shell adapter \uBC0F \uBA85\uC2DC\uC801 Addressables \uB4F1\uB85D
-    \uACBD\uACC4\uB97C \uC81C\uACF5\uD569\uB2C8\uB2E4."
-  _releaseNote: "- `<Role>Base` \uCD94\uC0C1 \uACC4\uC57D \uC6B0\uC120 \uC815\uCC45\uC5D0
-    \uB9DE\uCDB0 first-party \uACF5\uAC1C \uACC4\uC57D\uACFC \uC18C\uBE44\uC790\uB97C
-    \uC815\uB9AC\uD588\uC2B5\uB2C8\uB2E4.\n- C# \uC5B8\uC5B4 \uB610\uB294 \uC678\uBD80
-    API \uC81C\uC57D\uC774 \uC788\uB294 interface\uB9CC \uADFC\uAC70 \uC8FC\uC11D\uACFC
-    \uD568\uAED8 \uC720\uC9C0\uD588\uC2B5\uB2C8\uB2E4.\n- \uB7F0\uD0C0\uC784, \uC800\uC7A5,
-    \uBCF4\uC0C1, \uB85C\uADF8\uC778, \uC54C\uB9BC \uBC0F UI \uB3D9\uC791\uC740 \uBCC0\uACBD\uD558\uC9C0
-    \uC54A\uC558\uC2B5\uB2C8\uB2E4."
-  _dependenciesOverride: com.actionfit.cat.fonts@2.0.0;com.actionfit.content-core@0.3.0;com.actionfit.lava-rush@0.2.0;com.actionfit.lava-rush.ui@0.3.0;com.actionfit.time@2.0.0;com.actionfit.ui.popup@0.2.0;com.unity.addressables@2.8.1;com.unity.localization@1.5.5;com.unity.ugui@2.0.0
+  _description: Shared Cat product loop, countdown, reward, sound, analytics, and
+    order-completion services. Lava Rush production remains project-owned.
+  _releaseNote: '- Retires the post-5.7 Cat App Lava Rush composition and adapters.
+
+    -
+    Restores Cat production ownership to the local build-5.7.0 manager, controllers,
+    and prefabs.
+
+    - Keeps only shared Cat services and their required dependencies.'
+  _dependenciesOverride: com.actionfit.cat.fonts@2.0.0;com.actionfit.content-core@0.3.0

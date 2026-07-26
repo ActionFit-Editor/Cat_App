@@ -144,30 +144,6 @@ namespace ActionFit.Cat.App.Tests
         }
 
         [Test]
-        public void LavaRushTimingAdapter_SubscriptionsAreIndependentAndDisposeIdempotently()
-        {
-            var loop = new CatLoop();
-            DateTime now = new DateTime(2026, 7, 24, 3, 0, 0);
-            var countdown = CreateTrustedCountdown(loop, () => now, _ => { });
-            var adapter = new CatLavaRushTimingAdapter(loop, countdown);
-            var observed = new List<float>();
-            IDisposable first = adapter.SubscribeUpdate(observed.Add);
-            IDisposable second = adapter.SubscribeUpdate(observed.Add);
-
-            loop.AdvanceFrame(0.5f, 0f);
-            first.Dispose();
-            first.Dispose();
-            loop.AdvanceFrame(0.25f, 0f);
-            second.Dispose();
-            loop.AdvanceFrame(1f, 0f);
-
-            Assert.That(observed, Is.EqualTo(new[] { 0.5f, 0.5f, 0.25f }));
-            Assert.That(adapter.TryGetNow(out DateTime actual), Is.True);
-            Assert.That(actual, Is.EqualTo(now));
-            Assert.That(adapter.Now, Is.EqualTo(now));
-        }
-
-        [Test]
         public void Countdown_FormatsDayAndAccumulatedHoursExactly()
         {
             var loop = new CatLoop();

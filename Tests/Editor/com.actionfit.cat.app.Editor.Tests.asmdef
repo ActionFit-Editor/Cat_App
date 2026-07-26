@@ -5,11 +5,6 @@
     "com.actionfit.cat.app",
     "com.actionfit.cat.app.Editor",
     "com.actionfit.content-core",
-    "com.actionfit.lava-rush",
-    "com.actionfit.lava-rush.ui",
-    "com.actionfit.time",
-    "Unity.Addressables.Editor",
-    "UnityEngine.UI",
     "Unity.TextMeshPro"
   ],
   "includePlatforms": [

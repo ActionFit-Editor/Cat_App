@@ -1,9 +1,7 @@
 {
     "name": "com.actionfit.cat.app.Editor",
     "rootNamespace": "",
-    "references": [
-        "Unity.Addressables.Editor"
-    ],
+    "references": [],
     "includePlatforms": [
         "Editor"
     ],
